@@ -3,6 +3,8 @@ import 'package:sleepy_head/global_variables.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'home_home_view.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key, required this.title}) : super(key: key);
 
@@ -19,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
 
   final List<Widget> _pages = <Widget>[
     const Placeholder(),
-    const Placeholder(),
+    HomeHomeView(),
     const Placeholder(),
   ];
 
@@ -27,24 +29,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: T ext(widget.title),
-        //   actions: [
-        //     ThemeSwitcher(
-        //       clipper: const ThemeSwitcherCircleClipper(),
-        //       builder: (context) {
-        //         return IconButton(
-        //             onPressed: () {
-        //               setState(() {
-        //                 _isDark = !_isDark;
-        //               });
-        //             },
-        //             icon: Icon(
-        //                 !_isDark ? Icons.brightness_2 : Icons.wb_sunny));
-        //       },
-        //     )
-        //   ],
-        // ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: [

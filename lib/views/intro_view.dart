@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
+import '../services/user_data_provider.dart';
 import '../theme_config.dart';
 
 class IntroductionView extends StatefulWidget {
@@ -140,6 +142,7 @@ class _IntroductionViewState extends State<IntroductionView> {
   }
 
   void goHomepage(context) {
+    Provider.of<UserDataProvider>(context, listen: false).update(DateTime.now());
     Navigator.popAndPushNamed(context, widget.homeRoute);
   }
 
