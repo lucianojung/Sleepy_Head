@@ -1,0 +1,51 @@
+{
+  "helloWorld": "Hello World!",
+  "newUserWelcomeText": "Hey there {username}! Welcome to your journey to the land of dreams :)\nI'm {avatarname} and I love sleeping...\n...so together, we're gonna get you sleeping like a baby-sloth!",
+  "@newUserWelcomeText": {
+    "description": "the username",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      },
+      "avatarname": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeText": "Hey there {username}! Welcome back to your journey to the land of dreams :)\nFun fact: {funfact}",
+  "@welcomeText": {
+    "description": "the username",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      },
+      "funfact": {
+        "type": "String"
+      }
+    }
+  },
+  "question1": "How long did you sleep last night?",
+  "question2": "How much time did you spend in bed in total?",
+  "rewardText1": "Fantastic \uD83D\uDE4C\nThe answers you provide here form the foundations of your restful, rewarding sleep...",
+  "rewardText2": "Talking of rewards...\n...here's {count} dream tokens for you!",
+  "@rewardText2": {
+    "description": "number of Dream Tokens earned",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardText3": "Every time you invest in your sleep I'll add a token to your dreams⭐",
+  "rewardText4": "I've got something cool to show you...",
+  "rewardText5": "OMG you made it! Your Average sleep score is {score}!",
+  "@rewardText5": {
+    "description": "calculated sleep score",
+    "placeholders": {
+      "score": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  }
+}
