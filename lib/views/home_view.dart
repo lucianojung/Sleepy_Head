@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sleepy_head/global_variables.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key, required this.title}) : super(key: key);
 
@@ -45,19 +47,19 @@ class _HomeViewState extends State<HomeView> {
         // ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.timer_outlined),
-                activeIcon: Icon(Icons.timer),
-                label: "Timer"),
+                icon: const Icon(Icons.timer_outlined),
+                activeIcon: const Icon(Icons.timer),
+                label: AppLocalizations.of(context)!.nameTimer),
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                activeIcon: Icon(Icons.home),
-                label: "Home"),
+                icon: const Icon(Icons.home_outlined),
+                activeIcon: const Icon(Icons.home),
+                label: AppLocalizations.of(context)!.nameHome),
             BottomNavigationBarItem(
-                icon: Icon(Icons.star_outline),
-                activeIcon: Icon(Icons.star),
-                label: "Rewards")
+                icon: const Icon(Icons.star_outline),
+                activeIcon: const Icon(Icons.star),
+                label: AppLocalizations.of(context)!.nameRewards)
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,

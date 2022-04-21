@@ -40,19 +40,19 @@ class _IntroductionViewState extends State<IntroductionView> {
 
     var _pages = [
       PageViewModel(
-        title: "Welcome to Sleepy Head",
+        title: AppLocalizations.of(context)!.welcomeTitle,
         bodyWidget: textWidget(AppLocalizations.of(context)
-            ?.newUserWelcomeText('Sleepy Head', 'Sid')),
+            !.newUserWelcomeText('Sleepy Head', 'Sid')),
         image: introImage('assets/images/slothBackground1.png'),
         decoration: pageDecoration,
       ),
       PageViewModel(
-        title: "Frage 1",
+        title: AppLocalizations.of(context)!.nameQuestionX(1),
         bodyWidget: SizedBox(
           width: 600,
           child: Column(
             children: [
-              textWidget(AppLocalizations.of(context)?.question1),
+              textWidget(AppLocalizations.of(context)!.question1),
               textFieldWidget(tecQuestion1),
             ],
           ),
@@ -61,12 +61,12 @@ class _IntroductionViewState extends State<IntroductionView> {
         decoration: pageDecoration,
       ),
       PageViewModel(
-        title: "Frage 2",
+        title: AppLocalizations.of(context)!.nameQuestionX(2),
         bodyWidget: SizedBox(
           width: 600,
           child: Column(
             children: [
-              textWidget(AppLocalizations.of(context)?.question2),
+              textWidget(AppLocalizations.of(context)!.question2),
               textFieldWidget(tecQuestion2),
             ],
           ),
@@ -75,15 +75,15 @@ class _IntroductionViewState extends State<IntroductionView> {
         decoration: pageDecoration,
       ),
       PageViewModel(
-        title: "Reward",
-        bodyWidget: textWidget(AppLocalizations.of(context)?.rewardText1),
+        title: AppLocalizations.of(context)!.nameReward,
+        bodyWidget: textWidget(AppLocalizations.of(context)!.rewardText1),
         image: introImage('assets/images/slothBackground4.png'),
         decoration: pageDecoration,
       ),
       PageViewModel(
-        title: "Reward",
+        title: AppLocalizations.of(context)!.nameReward,
         bodyWidget:
-            textWidget(AppLocalizations.of(context)?.rewardText5(_score)),
+            textWidget(AppLocalizations.of(context)!.rewardText5(_score)),
         image: introImage('assets/images/slothBackground5.png'),
         decoration: pageDecoration,
       ),
@@ -122,9 +122,9 @@ class _IntroductionViewState extends State<IntroductionView> {
         Icons.arrow_forward,
         color: Colors.black,
       ),
-      done: const Text(
-        'Home',
-        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+      done: Text(
+        AppLocalizations.of(context)!.nameHome,
+        style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
       ),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0), //size of dots

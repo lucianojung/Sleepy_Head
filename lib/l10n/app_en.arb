@@ -1,5 +1,6 @@
 {
   "helloWorld": "Hello World!",
+  "welcomeTitle": "Hello and Welcome to Sleepy Head",
   "newUserWelcomeText": "Hey there {username}! Welcome to your journey to the land of dreams :)\nI'm {avatarname} and I love sleeping...\n...so together, we're gonna get you sleeping like a baby-sloth!",
   "@newUserWelcomeText": {
     "description": "the username",
@@ -47,5 +48,18 @@
         "format": "decimalPattern"
       }
     }
-  }
+  },
+  "nameQuestionX": "Question {number}",
+  "@nameQuestionX": {
+    "description": "Question number",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "nameReward": "Reward",
+  "nameRewards": "Rewards",
+  "nameHome": "Home",
+  "nameTimer": "Timer"
 }
