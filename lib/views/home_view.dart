@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sleepy_head/global_variables.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sleepy_head/services/user_data_provider.dart';
+import 'package:sleepy_head/views/timer_home_view.dart';
+import 'package:provider/provider.dart';
 
 import 'home_home_view.dart';
 
@@ -19,14 +22,13 @@ class _HomeViewState extends State<HomeView> {
   final _pageController =
       PageController(initialPage: GlobalVariables().initialHomePageIndex);
 
-  final List<Widget> _pages = <Widget>[
-    const Placeholder(),
-    HomeHomeView(),
-    const Placeholder(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Widget> _pages = <Widget>[
+      TimerHomeView(),
+      HomeHomeView(),
+      const Placeholder(),
+    ];
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(

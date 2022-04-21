@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:convert';
@@ -7,6 +8,7 @@ import '../models/user_data.dart';
 
 class UserDataProvider extends ChangeNotifier {
   UserData _userData = UserData();
+  NumberFormat timeFormatter = new NumberFormat('00');
 
   UserData get userData => _userData;
 
@@ -20,9 +22,28 @@ class UserDataProvider extends ChangeNotifier {
 
   // additional getters
 
-  Duration get sleepingTime => Duration(hours: _userData.plannedWakeupTime.hour - _userData.plannedBedTime.hour, minutes: _userData.plannedWakeupTime.minute - _userData.plannedBedTime.minute);
+  Duration get sleepingTime => Duration(
+      hours:
+          (_userData.plannedWakeupTime.hour - _userData.plannedBedTime.hour) %
+              24,
+      minutes: (_userData.plannedWakeupTime.minute -
+              _userData.plannedBedTime.minute) %
+          60);
 
-  get lastUpdateToday => DateTime.now().isAfter(_userData.lastUpdate.subtract(Duration(hours: _userData.lastUpdate.hour, minutes: _userData.lastUpdate.minute)).add(const Duration(days: 1)));
+  get lastUpdateToday => DateTime.now().isAfter(_userData.lastUpdate
+      .subtract(Duration(
+          hours: _userData.lastUpdate.hour,
+          minutes: _userData.lastUpdate.minute))
+      .add(const Duration(days: 1)));
+
+  get bedTimeString =>
+      '${_userData.plannedBedTime.hour}:${_userData.plannedBedTime.minute}';
+
+  get wakeUpTimeString =>
+      '${_userData.plannedWakeupTime.hour}:${_userData.plannedWakeupTime.minute}';
+
+  get sleepingTimeString =>
+      '${timeFormatter.format(sleepingTime.inHours)}:${timeFormatter.format(sleepingTime.inMinutes % 60)}';
 
   // CRUD Methods for local Variables
 
@@ -53,6 +74,14 @@ class UserDataProvider extends ChangeNotifier {
     updateSharedPrefrences();
     notifyListeners();
   }
+
+  void updateHomeIndex(int index) {
+    _userData.homeIndex = index;
+
+    updateSharedPrefrences();
+    notifyListeners();
+  }
+
   // shared preference Methods
 
   void updateSharedPrefrences() async {

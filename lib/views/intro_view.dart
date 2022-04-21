@@ -1,8 +1,12 @@
+import 'dart:math';
+
+import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:time_range_picker/time_range_picker.dart';
 
 import '../services/user_data_provider.dart';
 import '../theme_config.dart';
@@ -17,15 +21,15 @@ class IntroductionView extends StatefulWidget {
 }
 
 class _IntroductionViewState extends State<IntroductionView> {
-  TextEditingController tecQuestion1 = TextEditingController();
-  TextEditingController tecQuestion2 = TextEditingController();
+  Duration _sleepTime = Duration(hours: 8);
+  Duration _bedTime = Duration(hours: 8);
   var _showNextButton = true;
   double _score = 0;
   var _tecMap = {};
 
   @override
   Widget build(BuildContext context) {
-    _tecMap = {1: tecQuestion1, 2: tecQuestion2};
+    _tecMap = {1: _sleepTime, 2: _bedTime};
     PageDecoration pageDecoration = PageDecoration(
         titleTextStyle: const TextStyle(
             fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
@@ -43,8 +47,8 @@ class _IntroductionViewState extends State<IntroductionView> {
     var _pages = [
       PageViewModel(
         title: AppLocalizations.of(context)!.welcomeTitle,
-        bodyWidget: textWidget(AppLocalizations.of(context)
-            !.newUserWelcomeText('Sleepy Head', 'Sid')),
+        bodyWidget: textWidget(AppLocalizations.of(context)!
+            .newUserWelcomeText('Sleepy Head', 'Sid')),
         image: introImage('assets/images/slothBackground1.png'),
         decoration: pageDecoration,
       ),
@@ -55,7 +59,19 @@ class _IntroductionViewState extends State<IntroductionView> {
           child: Column(
             children: [
               textWidget(AppLocalizations.of(context)!.question1),
-              textFieldWidget(tecQuestion1),
+              DurationPicker(
+                duration: _sleepTime,
+                onChange: (val) {
+                  setState(() {
+                    _sleepTime = val;
+                    _showNextButton = _sleepTime != 0;
+                    var exactScore = _sleepTime.inMinutes /
+                        _bedTime.inMinutes;
+                    _score = double.parse(exactScore.toStringAsFixed(2));
+                  });
+                },
+                snapToMins: 5.0,
+              ),
             ],
           ),
         ),
@@ -69,7 +85,19 @@ class _IntroductionViewState extends State<IntroductionView> {
           child: Column(
             children: [
               textWidget(AppLocalizations.of(context)!.question2),
-              textFieldWidget(tecQuestion2),
+              DurationPicker(
+                duration: Duration(minutes: max(_bedTime.inMinutes, _sleepTime.inMinutes)),
+                onChange: (val) {
+                  setState(() {
+                    _bedTime = val;
+                    _showNextButton = _bedTime != 0;
+                    var exactScore = _sleepTime.inMinutes /
+                        _bedTime.inMinutes;
+                    _score = double.parse(exactScore.toStringAsFixed(2));
+                  });
+                },
+                snapToMins: 5.0,
+              ),
             ],
           ),
         ),
@@ -102,7 +130,7 @@ class _IntroductionViewState extends State<IntroductionView> {
       // You can override on skip
       onChange: (value) => setState(() {
         _showNextButton = !(_tecMap.containsKey(value) &&
-            (_tecMap[value] as TextEditingController).text == '');
+            _tecMap[value].inMinutes() == 0);
       }),
       showBackButton: true,
       showSkipButton: false,
@@ -126,7 +154,8 @@ class _IntroductionViewState extends State<IntroductionView> {
       ),
       done: Text(
         AppLocalizations.of(context)!.nameHome,
-        style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+        style:
+            const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
       ),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0), //size of dots
@@ -142,26 +171,22 @@ class _IntroductionViewState extends State<IntroductionView> {
   }
 
   void goHomepage(context) {
-    Provider.of<UserDataProvider>(context, listen: false).update(DateTime.now());
+    Provider.of<UserDataProvider>(context, listen: false)
+        .update(DateTime.now());
     Navigator.popAndPushNamed(context, widget.homeRoute);
   }
 
-  void onTextInputChanges(newValue) {
-    setState(() {
-      _showNextButton = newValue != '';
-      var exactScore = (double.tryParse(tecQuestion1.text) ?? 0) /
-          (double.tryParse(tecQuestion2.text) ?? 1);
-      _score = double.parse(exactScore.toStringAsFixed(2));
-    });
-  }
+  // custom images
 
   Widget introImage(String assetName) {
     //widget to show intro image
-    return Image.asset(assetName,
-        colorBlendMode: BlendMode.lighten,
-        color: Colors.white10,
-        fit: BoxFit.fitHeight,
-        height: MediaQuery.of(context).size.height,);
+    return Image.asset(
+      assetName,
+      colorBlendMode: BlendMode.lighten,
+      color: Colors.white10,
+      fit: BoxFit.fitHeight,
+      height: MediaQuery.of(context).size.height,
+    );
   }
 
   Widget textWidget(String? text) {
@@ -169,15 +194,6 @@ class _IntroductionViewState extends State<IntroductionView> {
       text ?? '',
       style: textStyle,
       textAlign: TextAlign.center,
-    );
-  }
-
-  Widget textFieldWidget(TextEditingController textEditingController) {
-    return TextField(
-      style: textStyle,
-      textAlign: TextAlign.center,
-      controller: textEditingController,
-      onChanged: onTextInputChanges,
     );
   }
 }
