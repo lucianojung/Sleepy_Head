@@ -35,7 +35,8 @@ class _IntroductionViewState extends State<IntroductionView> {
         footerPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
         //decription padding
         imagePadding: const EdgeInsets.all(20),
-        pageColor: Theme.of(context).primaryColor);
+        pageColor: Theme.of(context).primaryColor,
+        fullScreen: true);
 
     var _pages = [
       PageViewModel(
@@ -47,22 +48,28 @@ class _IntroductionViewState extends State<IntroductionView> {
       ),
       PageViewModel(
         title: "Frage 1",
-        bodyWidget: Column(
-          children: [
-            textWidget(AppLocalizations.of(context)?.question1),
-            textFieldWidget(tecQuestion1),
-          ],
+        bodyWidget: SizedBox(
+          width: 600,
+          child: Column(
+            children: [
+              textWidget(AppLocalizations.of(context)?.question1),
+              textFieldWidget(tecQuestion1),
+            ],
+          ),
         ),
         image: introImage('assets/images/slothBackground3.png'),
         decoration: pageDecoration,
       ),
       PageViewModel(
         title: "Frage 2",
-        bodyWidget: Column(
-          children: [
-            textWidget(AppLocalizations.of(context)?.question2),
-            textFieldWidget(tecQuestion2),
-          ],
+        bodyWidget: SizedBox(
+          width: 600,
+          child: Column(
+            children: [
+              textWidget(AppLocalizations.of(context)?.question2),
+              textFieldWidget(tecQuestion2),
+            ],
+          ),
         ),
         image: introImage('assets/images/slothBackground3.png'),
         decoration: pageDecoration,
@@ -75,7 +82,8 @@ class _IntroductionViewState extends State<IntroductionView> {
       ),
       PageViewModel(
         title: "Reward",
-        bodyWidget: textWidget(AppLocalizations.of(context)?.rewardText5(_score)),
+        bodyWidget:
+            textWidget(AppLocalizations.of(context)?.rewardText5(_score)),
         image: introImage('assets/images/slothBackground5.png'),
         decoration: pageDecoration,
       ),
@@ -138,22 +146,19 @@ class _IntroductionViewState extends State<IntroductionView> {
   void onTextInputChanges(newValue) {
     setState(() {
       _showNextButton = newValue != '';
-      var exactScore = (double.tryParse(tecQuestion1.text) ?? 0) / (double.tryParse(tecQuestion2.text) ?? 1);
-      _score =  double.parse(exactScore.toStringAsFixed(2));
+      var exactScore = (double.tryParse(tecQuestion1.text) ?? 0) /
+          (double.tryParse(tecQuestion2.text) ?? 1);
+      _score = double.parse(exactScore.toStringAsFixed(2));
     });
   }
 
   Widget introImage(String assetName) {
     //widget to show intro image
-    return Align(
-      child: Image.asset(
-        assetName,
-        width: MediaQuery.of(context).size.width - 100,
+    return Image.asset(assetName,
         colorBlendMode: BlendMode.lighten,
         color: Colors.white10,
-      ),
-      alignment: Alignment.bottomCenter,
-    );
+        fit: BoxFit.fitHeight,
+        height: MediaQuery.of(context).size.height,);
   }
 
   Widget textWidget(String? text) {
