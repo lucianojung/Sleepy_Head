@@ -12,6 +12,12 @@ class HomeHomeView extends StatefulWidget {
 
 class _HomeHomeViewState extends State<HomeHomeView> {
   @override
+  void setState(VoidCallback fn) {
+
+    super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -19,8 +25,8 @@ class _HomeHomeViewState extends State<HomeHomeView> {
         ElevatedButton(
           onPressed: (() {
             context.read<AppConfigProvider>().update(
-                DateTime.now().subtract(const Duration(days: 12)),
-              );
+                  DateTime.now().subtract(const Duration(days: 12)),
+                );
             context.read<AppConfigProvider>().updateInitialRoute('/intro');
           }),
           child: const Text(

@@ -5,6 +5,7 @@ import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:sleepy_head/views/timer_home_view.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/notification_utils.dart';
 import 'home_home_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -23,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.initialPageIndex);
+    NotificationUtils.scheduleBedTimePushNotification(context);
     super.initState();
   }
 

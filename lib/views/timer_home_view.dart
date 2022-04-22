@@ -3,6 +3,7 @@ import 'package:time_range_picker/time_range_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../services/user_data_provider.dart';
+import '../utils/notification_utils.dart';
 
 class TimerHomeView extends StatefulWidget {
   TimerHomeView({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _TimerHomeViewState extends State<TimerHomeView> {
               context: context,
               start: context.read<UserDataProvider>().userData.plannedBedTime,
               end: context.read<UserDataProvider>().userData.plannedWakeupTime,
-              interval: const Duration(minutes: 15),
+              interval: const Duration(minutes: 1),
               minDuration: context.read<UserDataProvider>().sleepingTime,
               maxDuration: context.read<UserDataProvider>().sleepingTime,
               clockRotation: 180,
@@ -54,12 +55,16 @@ class _TimerHomeViewState extends State<TimerHomeView> {
               //   width: 200,
               // ),
             );
-            context
-                .read<UserDataProvider>()
-                .updatePlannedBedTime(result!.startTime);
-            context
-                .read<UserDataProvider>()
-                .updatePlannedWakeupTime(result.endTime);
+            if(result != null) {
+              context
+                  .read<UserDataProvider>()
+                  .updatePlannedBedTime(result.startTime);
+              context
+                  .read<UserDataProvider>()
+                  .updatePlannedWakeupTime(result.endTime);
+              NotificationUtils.scheduleBedTimePushNotification(context);
+            }
+
           },
           label: Text(
             context.read<UserDataProvider>().sleepingTimeString,

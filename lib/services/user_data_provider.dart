@@ -30,11 +30,21 @@ class UserDataProvider extends ChangeNotifier {
               _userData.plannedBedTime.minute) %
           60);
 
+  get bedTimeBeforeNow => DateTime.now().difference(
+      DateTimeCopyWith(DateTime.now(),
+      hour: _userData.plannedBedTime.hour,
+      minute: _userData.plannedBedTime.minute)).inMinutes > 0;
+
+  get bedTimeSchedule => DateTimeCopyWith(DateTime.now(),
+      day: bedTimeBeforeNow ? DateTime.now().day + 1 : DateTime.now().day,
+      hour: _userData.plannedBedTime.hour,
+      minute: _userData.plannedBedTime.minute);
+
   get bedTimeString =>
-      '${_userData.plannedBedTime.hour}:${_userData.plannedBedTime.minute}';
+      '${timeFormatter.format(_userData.plannedBedTime.hour)}:${timeFormatter.format(_userData.plannedBedTime.minute)}';
 
   get wakeUpTimeString =>
-      '${_userData.plannedWakeupTime.hour}:${_userData.plannedWakeupTime.minute}';
+      '${timeFormatter.format(_userData.plannedWakeupTime.hour)}:${timeFormatter.format(_userData.plannedWakeupTime.minute)}';
 
   get sleepingTimeString =>
       '${timeFormatter.format(sleepingTime.inHours)}:${timeFormatter.format(sleepingTime.inMinutes % 60)}';
@@ -80,5 +90,17 @@ class UserDataProvider extends ChangeNotifier {
       _userData = UserData.fromJson(json.decode(result));
     }
     notifyListeners();
+  }
+
+  DateTime DateTimeCopyWith(DateTime dateTime,
+      {int? year, int? month, int? day, int? hour, int? minute, int? second}) {
+    return DateTime(
+      year ?? dateTime.year,
+      month ?? dateTime.month,
+      day ?? dateTime.day,
+      hour ?? dateTime.hour,
+      minute ?? dateTime.minute,
+      second ?? dateTime.second,
+    );
   }
 }
