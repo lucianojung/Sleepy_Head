@@ -49,7 +49,7 @@ class _IntroductionViewState extends State<IntroductionView> {
         title: AppLocalizations.of(context)!.welcomeTitle,
         bodyWidget: textWidget(AppLocalizations.of(context)!
             .newUserWelcomeText('Sleepy Head', 'Sid')),
-        image: introImage('assets/images/slothBackground1.png'),
+        image: introImage('assets/images/slothBackground1.gif'),
         decoration: pageDecoration,
       ),
       PageViewModel(
@@ -74,7 +74,7 @@ class _IntroductionViewState extends State<IntroductionView> {
             ],
           ),
         ),
-        image: introImage('assets/images/slothBackground3.png'),
+        image: introImage('assets/images/slothBackground2.gif'),
         decoration: pageDecoration,
       ),
       PageViewModel(
@@ -100,20 +100,20 @@ class _IntroductionViewState extends State<IntroductionView> {
             ],
           ),
         ),
-        image: introImage('assets/images/slothBackground3.png'),
+        image: introImage('assets/images/slothBackground3.gif'),
         decoration: pageDecoration,
       ),
       PageViewModel(
         title: AppLocalizations.of(context)!.nameReward,
         bodyWidget: textWidget(AppLocalizations.of(context)!.rewardText1),
-        image: introImage('assets/images/slothBackground4.png'),
+        image: introImage('assets/images/slothBackground4.gif'),
         decoration: pageDecoration,
       ),
       PageViewModel(
         title: AppLocalizations.of(context)!.nameReward,
         bodyWidget:
             textWidget(AppLocalizations.of(context)!.rewardText5(_score)),
-        image: introImage('assets/images/slothBackground5.png'),
+        image: introImage('assets/images/slothBackground5.gif'),
         decoration: pageDecoration,
       ),
       //add more screen here
