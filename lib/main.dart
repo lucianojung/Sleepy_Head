@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return context.read<AppConfigProvider>().appConfig.initialRoute != ''
+    return context.watch<AppConfigProvider>().appConfig.initialRoute != ''
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
             title: GlobalVariables().appTitle,

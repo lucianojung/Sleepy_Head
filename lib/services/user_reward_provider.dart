@@ -96,10 +96,8 @@ class UserRewardProvider extends ChangeNotifier {
       Reward correspondingReward = _userRewards.firstWhere((userReward) => userReward.reward.id == reward.id, orElse: () => UserReward()).reward;
       if (correspondingReward.id == -1) {
         addUnlockableReward(reward);
-      } else {
-        print(correspondingReward.id);
+        print('add unlockable Reward ${reward.name}');
       }
-      print('added');
     }
     notifyListeners();
   }
