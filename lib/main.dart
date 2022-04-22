@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(Platform.isAndroid || Platform.isIOS) {
-    AwesomeNotifications().initialize(null, [
-      NotificationChannel(channelKey: 'channelKey', channelName: 'sleep reminder', channelDescription: 'this channel remindes the user to go asleep', enableVibration: true, enableLights: true, playSound: true)
-    ]);
-  }
   runApp(MultiProvider(providers: providers, child: MyApp()));
 }
 
