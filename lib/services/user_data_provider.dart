@@ -30,12 +30,6 @@ class UserDataProvider extends ChangeNotifier {
               _userData.plannedBedTime.minute) %
           60);
 
-  get lastUpdateToday => DateTime.now().isAfter(_userData.lastUpdate
-      .subtract(Duration(
-          hours: _userData.lastUpdate.hour,
-          minutes: _userData.lastUpdate.minute))
-      .add(const Duration(days: 1)));
-
   get bedTimeString =>
       '${_userData.plannedBedTime.hour}:${_userData.plannedBedTime.minute}';
 
@@ -54,13 +48,6 @@ class UserDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void update(DateTime lastUpdate) {
-    _userData.lastUpdate = lastUpdate;
-
-    updateSharedPrefrences();
-    notifyListeners();
-  }
-
   void updatePlannedBedTime(TimeOfDay plannedBedTime) {
     _userData.plannedBedTime = plannedBedTime;
 
@@ -70,13 +57,6 @@ class UserDataProvider extends ChangeNotifier {
 
   void updatePlannedWakeupTime(TimeOfDay plannedWakeupTime) {
     _userData.plannedWakeupTime = plannedWakeupTime;
-
-    updateSharedPrefrences();
-    notifyListeners();
-  }
-
-  void updateHomeIndex(int index) {
-    _userData.homeIndex = index;
 
     updateSharedPrefrences();
     notifyListeners();

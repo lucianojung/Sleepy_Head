@@ -52,6 +52,7 @@ class _HomeViewState extends State<HomeView> {
         ),
         body: PageView(
             physics: const BouncingScrollPhysics(),
+            onPageChanged: ((index) => print(index)),
             controller: _pageController,
             children: _pages),
       ),

@@ -6,7 +6,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:time_range_picker/time_range_picker.dart';
+import 'package:sleepy_head/services/app_config_provider.dart';
 
 import '../services/user_data_provider.dart';
 import '../theme_config.dart';
@@ -25,11 +25,11 @@ class _IntroductionViewState extends State<IntroductionView> {
   Duration _bedTime = Duration(hours: 8);
   var _showNextButton = true;
   double _score = 0;
-  var _tecMap = {};
+  var _showButtonMap = {};
 
   @override
   Widget build(BuildContext context) {
-    _tecMap = {1: _sleepTime, 2: _bedTime};
+    _showButtonMap = {1: _sleepTime, 2: _bedTime};
     PageDecoration pageDecoration = PageDecoration(
         titleTextStyle: const TextStyle(
             fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
@@ -65,8 +65,7 @@ class _IntroductionViewState extends State<IntroductionView> {
                   setState(() {
                     _sleepTime = val;
                     _showNextButton = _sleepTime != 0;
-                    var exactScore = _sleepTime.inMinutes /
-                        _bedTime.inMinutes;
+                    var exactScore = _sleepTime.inMinutes / _bedTime.inMinutes;
                     _score = double.parse(exactScore.toStringAsFixed(2));
                   });
                 },
@@ -86,13 +85,13 @@ class _IntroductionViewState extends State<IntroductionView> {
             children: [
               textWidget(AppLocalizations.of(context)!.question2),
               DurationPicker(
-                duration: Duration(minutes: max(_bedTime.inMinutes, _sleepTime.inMinutes)),
+                duration: Duration(
+                    minutes: max(_bedTime.inMinutes, _sleepTime.inMinutes)),
                 onChange: (val) {
                   setState(() {
                     _bedTime = val;
                     _showNextButton = _bedTime != 0;
-                    var exactScore = _sleepTime.inMinutes /
-                        _bedTime.inMinutes;
+                    var exactScore = _sleepTime.inMinutes / _bedTime.inMinutes;
                     _score = double.parse(exactScore.toStringAsFixed(2));
                   });
                 },
@@ -129,8 +128,8 @@ class _IntroductionViewState extends State<IntroductionView> {
       onSkip: () => {},
       // You can override on skip
       onChange: (value) => setState(() {
-        _showNextButton = !(_tecMap.containsKey(value) &&
-            _tecMap[value].inMinutes() == 0);
+        _showNextButton = !(_showButtonMap.containsKey(value) &&
+            _showButtonMap[value].inMinutes() == 0);
       }),
       showBackButton: true,
       showSkipButton: false,
@@ -171,8 +170,8 @@ class _IntroductionViewState extends State<IntroductionView> {
   }
 
   void goHomepage(context) {
-    Provider.of<UserDataProvider>(context, listen: false)
-        .update(DateTime.now());
+    Provider.of<AppConfigProvider>(context, listen: false).update(DateTime.now());
+    Provider.of<AppConfigProvider>(context, listen: false).updateInitialRoute('/');
     Navigator.popAndPushNamed(context, widget.homeRoute);
   }
 
