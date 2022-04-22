@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: lightTheme,
-            initialRoute:
-                context.read<AppConfigProvider>().appConfig.initialRoute,
-            onGenerateRoute: RouteGenerator.generateRoute)
+            initialRoute: context.read<AppConfigProvider>().appConfig.initialRoute,
+            onGenerateRoute: RouteGenerator.generateRoute,
+          )
         : Center(key: UniqueKey(), child: CircularProgressIndicator());
   }
 }

@@ -45,8 +45,8 @@ class _TimerHomeViewState extends State<TimerHomeView> {
                 ClockLabel.fromDegree(deg: 30, text: '20'),
                 ClockLabel.fromDegree(deg: 60, text: '22'),
               ],
-              strokeWidth: 32,
-              handlerRadius: 16,
+              strokeWidth: 24,
+              handlerRadius: 12,
               labelOffset: -42,
               // backgroundWidget: Image.asset(
               //   "assets/images/day-night.png",

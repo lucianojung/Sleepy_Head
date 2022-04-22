@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sleepy_head/services/user_data_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../services/app_config_provider.dart';
 

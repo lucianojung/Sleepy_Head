@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sleepy_head/services/app_config_provider.dart';
 
 import '../global_variables.dart';
 import '../views/home_view.dart';
@@ -13,9 +15,10 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => HomeView(
+          builder: (context) => HomeView(
               key: UniqueKey(),
-              title: args is String ? args : GlobalVariables().appTitle),
+              title: args is String ? args : GlobalVariables().appTitle,
+              initialPageIndex: Provider.of<AppConfigProvider>(context).appConfig.homeIndex),
         );
       case '/intro':
         return MaterialPageRoute(

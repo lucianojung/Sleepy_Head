@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:sleepy_head/global_variables.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sleepy_head/services/user_data_provider.dart';
+import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:sleepy_head/views/timer_home_view.dart';
 import 'package:provider/provider.dart';
 
 import 'home_home_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key, required this.title}) : super(key: key);
-
   final String title;
+  final int initialPageIndex;
+
+  const HomeView({Key? key, required this.title, required this.initialPageIndex}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = GlobalVariables().initialHomePageIndex;
-  final _pageController =
-      PageController(initialPage: GlobalVariables().initialHomePageIndex);
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: widget.initialPageIndex);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +51,12 @@ class _HomeViewState extends State<HomeView> {
                 activeIcon: const Icon(Icons.star),
                 label: AppLocalizations.of(context)!.nameRewards)
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: Provider.of<AppConfigProvider>(context, listen: true).appConfig.homeIndex,
           onTap: _onItemTapped,
         ),
         body: PageView(
             physics: const BouncingScrollPhysics(),
-            onPageChanged: ((index) => print(index)),
+            onPageChanged: ((index) => Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index)),
             controller: _pageController,
             children: _pages),
       ),
@@ -60,9 +64,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    print(index);
+    Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index);
     _pageController.animateToPage(index,
         duration: const Duration(seconds: 1), curve: Curves.easeOut);
   }
