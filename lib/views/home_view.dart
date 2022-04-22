@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:sleepy_head/views/rewards_home_view.dart';
 import 'package:sleepy_head/views/timer_home_view.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
     List<Widget> _pages = <Widget>[
       TimerHomeView(),
       HomeHomeView(),
-      const Placeholder(),
+      RewardsHomeView()
     ];
     return SafeArea(
       child: Scaffold(
