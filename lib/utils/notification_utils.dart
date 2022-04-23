@@ -20,7 +20,29 @@ class NotificationUtils {
               'Your alarm is ringing at ${Provider.of<UserDataProvider>(context, listen: false).wakeUpTimeString}'),
           schedule: NotificationCalendar.fromDate(
               date: Provider.of<UserDataProvider>(context, listen: false)
-                  .bedTimeSchedule));
+                  .bedTimeSchedules[0]));
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 2,
+              channelKey: 'channelKey',
+              title:
+              'Its BedTime (${Provider.of<UserDataProvider>(context, listen: false).bedTimeString})',
+              body:
+              'Your alarm is ringing at ${Provider.of<UserDataProvider>(context, listen: false).wakeUpTimeString}'),
+          schedule: NotificationCalendar.fromDate(
+              date: Provider.of<UserDataProvider>(context, listen: false)
+                  .bedTimeSchedules[1]));
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 3,
+              channelKey: 'channelKey',
+              title:
+              'Its BedTime (${Provider.of<UserDataProvider>(context, listen: false).bedTimeString})',
+              body:
+              'Your alarm is ringing at ${Provider.of<UserDataProvider>(context, listen: false).wakeUpTimeString}'),
+          schedule: NotificationCalendar.fromDate(
+              date: Provider.of<UserDataProvider>(context, listen: false)
+                  .bedTimeSchedules[2]));
     } else {
       print('schedule BedTime Alarm is not possible. Plattform is neither Android nor IOS');
     }

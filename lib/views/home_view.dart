@@ -6,6 +6,8 @@ import 'package:sleepy_head/views/rewards_home_view.dart';
 import 'package:sleepy_head/views/timer_home_view.dart';
 import 'package:provider/provider.dart';
 
+import '../models/reward.dart';
+import '../services/user_reward_provider.dart';
 import '../utils/notification_utils.dart';
 import 'home_home_view.dart';
 
@@ -26,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     _pageController = PageController(initialPage: widget.initialPageIndex);
     NotificationUtils.scheduleBedTimePushNotification(context);
+
     super.initState();
   }
 

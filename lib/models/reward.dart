@@ -29,3 +29,22 @@ class Reward {
         unlockDescription = json['unlockDescription'] ?? ''
   ;
 }
+
+List<Reward> rewards = [
+  Reward(
+      id: 4,
+      name: 'Newbie',
+      rewardDescription: 'Enter your sleep data for the first time.'),
+  Reward(
+      id: 1,
+      name: 'Be one with the App',
+      unlockDescription: 'You have to use the app your whole life'),
+  Reward(
+      id: 2,
+      name: 'Be who you are',
+      unlockDescription: 'Be who you are!'),
+];
+
+Reward getRewardByName(String name) {
+  return rewards.firstWhere((element) => element.name.toLowerCase().contains(name.toLowerCase()));
+}
