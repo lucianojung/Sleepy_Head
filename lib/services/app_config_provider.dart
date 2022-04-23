@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sleepy_head/utils/date_time_utils.dart';
 
 import 'dart:convert';
 
@@ -20,12 +21,10 @@ class AppConfigProvider extends ChangeNotifier {
 
   // additional getters
 
-  get lastUpdateToday => DateTime.now().isAfter(_appConfig.lastUpdate
-      .subtract(Duration(
-      hours: _appConfig.lastUpdate.hour,
-      minutes: _appConfig.lastUpdate.minute))
-      .add(const Duration(days: 1)));
-
+  get lastUpdateToday => DateTime.now().isAfter(
+        DateTimeUtils.DateTimeCopyWith(_appConfig.lastUpdate,
+            day: _appConfig.lastUpdate.day + 1, hour: 0, minute: 0, second: 0),
+      );
 
   // CRUD Methods for local Variables
 

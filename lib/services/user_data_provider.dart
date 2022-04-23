@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import '../models/user_data.dart';
+import '../utils/date_time_utils.dart';
 
 class UserDataProvider extends ChangeNotifier {
   UserData _userData = UserData();
@@ -31,14 +32,23 @@ class UserDataProvider extends ChangeNotifier {
           60);
 
   get bedTimeBeforeNow => DateTime.now().difference(
-      DateTimeCopyWith(DateTime.now(),
+      DateTimeUtils.DateTimeCopyWith(DateTime.now(),
       hour: _userData.plannedBedTime.hour,
       minute: _userData.plannedBedTime.minute)).inMinutes > 0;
 
-  get bedTimeSchedule => DateTimeCopyWith(DateTime.now(),
+  get bedTimeSchedules => [DateTimeUtils.DateTimeCopyWith(DateTime.now(),
       day: bedTimeBeforeNow ? DateTime.now().day + 1 : DateTime.now().day,
       hour: _userData.plannedBedTime.hour,
-      minute: _userData.plannedBedTime.minute);
+      minute: _userData.plannedBedTime.minute),
+    DateTimeUtils.DateTimeCopyWith(DateTime.now(),
+        day: bedTimeBeforeNow ? DateTime.now().day + 2 : DateTime.now().day + 1,
+        hour: _userData.plannedBedTime.hour,
+        minute: _userData.plannedBedTime.minute),
+    DateTimeUtils.DateTimeCopyWith(DateTime.now(),
+        day: bedTimeBeforeNow ? DateTime.now().day + 3 : DateTime.now().day + 2,
+        hour: _userData.plannedBedTime.hour,
+        minute: _userData.plannedBedTime.minute),
+  ];
 
   get bedTimeString =>
       '${timeFormatter.format(_userData.plannedBedTime.hour)}:${timeFormatter.format(_userData.plannedBedTime.minute)}';
@@ -90,17 +100,5 @@ class UserDataProvider extends ChangeNotifier {
       _userData = UserData.fromJson(json.decode(result));
     }
     notifyListeners();
-  }
-
-  DateTime DateTimeCopyWith(DateTime dateTime,
-      {int? year, int? month, int? day, int? hour, int? minute, int? second}) {
-    return DateTime(
-      year ?? dateTime.year,
-      month ?? dateTime.month,
-      day ?? dateTime.day,
-      hour ?? dateTime.hour,
-      minute ?? dateTime.minute,
-      second ?? dateTime.second,
-    );
   }
 }

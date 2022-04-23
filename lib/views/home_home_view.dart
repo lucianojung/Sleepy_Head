@@ -13,7 +13,6 @@ class HomeHomeView extends StatefulWidget {
 class _HomeHomeViewState extends State<HomeHomeView> {
   @override
   void setState(VoidCallback fn) {
-
     super.setState(fn);
   }
 
@@ -25,13 +24,13 @@ class _HomeHomeViewState extends State<HomeHomeView> {
         ElevatedButton(
           onPressed: (() {
             context.read<AppConfigProvider>().update(
-                  DateTime.now().subtract(const Duration(days: 12)),
+                  DateTime.fromMillisecondsSinceEpoch(0),
                 );
             context.read<AppConfigProvider>().updateInitialRoute('/intro');
           }),
-          child: const Text(
-              'Reset LastUpdate (-> to see welcome screen again after reload)'),
+          child: const Text('Reset LastUpdate (-> to see welcome screen again after reload)'),
         ),
+        Text(context.read<AppConfigProvider>().appConfig.lastUpdate.toString())
       ],
     );
   }

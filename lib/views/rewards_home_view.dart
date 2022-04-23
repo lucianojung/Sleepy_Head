@@ -23,7 +23,7 @@ class _RewardsHomeViewState extends State<RewardsHomeView> {
           subtitle: Text(reward.unlockDescription, style: listTileTextStyle(unlocked)),
           leading: SizedBox(child: Image.asset(reward.imagePath, colorBlendMode: BlendMode.darken, color: unlocked ? Colors.white : Colors.black45,)),
           // onTap: (() => Provider.of<UserRewardProvider>(context, listen: false).addUnlockableReward(Reward(id: -1, name: data.userRewards[index].reward.name))),
-          onTap: (() => Provider.of<UserRewardProvider>(context, listen: false).unlockUserReward(-1, reward.id)),
+          onTap: (() => Provider.of<UserRewardProvider>(context, listen: false).unlockUserReward(-1, reward.id, context)),
         );
         },
       ),

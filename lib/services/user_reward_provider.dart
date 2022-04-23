@@ -8,20 +8,6 @@ import 'dart:convert';
 
 class UserRewardProvider extends ChangeNotifier {
   List<UserReward> _userRewards = [];
-  List<Reward> _rewards = [
-    Reward(
-        id: 0,
-        name: 'Open the App',
-        rewardDescription: 'You managed to open the app'),
-    Reward(
-        id: 1,
-        name: 'Be one with the App',
-        unlockDescription: 'You have to use the app your whole life'),
-    Reward(
-        id: 2,
-        name: 'Be who you are',
-        unlockDescription: 'Be who you are!'),
-  ];
 
   List<UserReward> get userRewards => _userRewards;
 
@@ -37,14 +23,17 @@ class UserRewardProvider extends ChangeNotifier {
 
   // CRUD Methods for local Variables
 
-  void unlockUserReward(int userId, int rewardId) {
-    _userRewards
-        .firstWhere((element) =>
-            element.user.id == userId && element.reward.id == rewardId)
-        .unlocked = true;
+  void unlockUserReward(int userId, int rewardId, BuildContext context) {
+    var userReward = _userRewards.firstWhere((element) =>
+        element.user.id == userId && element.reward.id == rewardId, orElse: () => UserReward());
+    if (userReward.reward.id != UserReward().reward.id && !userReward.unlocked) {
+      userReward.unlocked = true;
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('You unlocked ${userReward.reward.name}')));
 
-    updateSharedPrefrences();
-    notifyListeners();
+      updateSharedPrefrences();
+      notifyListeners();
+    }
   }
 
   void lockUserReward(int userId, int rewardId) {
@@ -92,8 +81,11 @@ class UserRewardProvider extends ChangeNotifier {
       _userRewards = List<UserReward>.from(
           result.map((x) => UserReward.fromJson(json.decode(x))));
     }
-    for (var reward in _rewards) {
-      Reward correspondingReward = _userRewards.firstWhere((userReward) => userReward.reward.id == reward.id, orElse: () => UserReward()).reward;
+    for (var reward in rewards) {
+      Reward correspondingReward = _userRewards
+          .firstWhere((userReward) => userReward.reward.id == reward.id,
+              orElse: () => UserReward())
+          .reward;
       if (correspondingReward.id == -1) {
         addUnlockableReward(reward);
         print('add unlockable Reward ${reward.name}');

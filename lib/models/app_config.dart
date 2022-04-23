@@ -2,7 +2,7 @@ class AppConfig {
   var userId = -1;
   var initialRoute = '';
   var homeIndex = 1;
-  var lastUpdate = DateTime.now().subtract(Duration(days: 1));
+  var lastUpdate = DateTime.fromMillisecondsSinceEpoch(0);
 
   AppConfig({userId, initialRoute, homeIndex, lastUpdate}){
     this.userId = userId ?? this.userId;
