@@ -21,7 +21,7 @@ class AppConfigProvider extends ChangeNotifier {
 
   // additional getters
 
-  get lastUpdateToday => DateTime.now().isAfter(
+  get lastUpdateToday => DateTime.now().isBefore(
         DateTimeUtils.DateTimeCopyWith(_appConfig.lastUpdate,
             day: _appConfig.lastUpdate.day + 1, hour: 0, minute: 0, second: 0),
       );
