@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             title: GlobalVariables().appTitle,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            theme: lightTheme,
+            theme: (DateTime.now().hour > 22 || DateTime.now().hour < 6) ? darkTheme : lightTheme,
             initialRoute: context.read<AppConfigProvider>().appConfig.initialRoute,
             onGenerateRoute: RouteGenerator.generateRoute,
           )

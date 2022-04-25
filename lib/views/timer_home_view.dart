@@ -65,7 +65,7 @@ class _TimerHomeViewState extends State<TimerHomeView> {
 
           },
           label: Text(
-            context.read<UserDataProvider>().sleepingTimeString,
+            context.read<UserDataProvider>().wakeUpTimeString,
             style: const TextStyle(fontSize: 44),
           ),
         )
