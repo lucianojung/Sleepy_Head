@@ -18,20 +18,30 @@ class _HomeHomeViewState extends State<HomeHomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: (() {
-            context.read<AppConfigProvider>().update(
-                  DateTime.fromMillisecondsSinceEpoch(0),
-                );
-            context.read<AppConfigProvider>().updateInitialRoute('/intro');
-          }),
-          child: const Text('Reset LastUpdate (-> to see welcome screen again after reload)'),
-        ),
-        Text(context.read<AppConfigProvider>().appConfig.lastUpdate.toString())
-      ],
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/Avatar_16to9_format.png'),
+              fit: BoxFit.fitHeight,
+              alignment: Alignment.centerRight),
+          color: Colors.green),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            child: ElevatedButton(
+              onPressed: (() {
+                context.read<AppConfigProvider>().update(
+                      DateTime.fromMillisecondsSinceEpoch(0),
+                    );
+                context.read<AppConfigProvider>().updateInitialRoute('/intro');
+              }),
+              child: const Text('Reset LastUpdate (-> to see welcome screen again after reload)'),
+            ),
+          ),
+          Text(context.read<AppConfigProvider>().appConfig.lastUpdate.toString())
+        ],
+      ),
     );
   }
 }
