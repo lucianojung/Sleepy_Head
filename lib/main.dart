@@ -29,14 +29,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<AppConfigProvider>().appConfig.initialRoute != ''
+    return context.watch<AppConfigProvider>().appConfig.lastUpdate != DateTime.fromMillisecondsSinceEpoch(0)
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
             title: GlobalVariables().appTitle,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: (DateTime.now().hour > 22 || DateTime.now().hour < 6) ? darkTheme : lightTheme,
-            initialRoute: context.read<AppConfigProvider>().appConfig.initialRoute,
+            initialRoute: context.read<AppConfigProvider>().initialRoute,
+            // initialRoute: '/animation',
             onGenerateRoute: RouteGenerator.generateRoute,
           )
         : Center(key: UniqueKey(), child: CircularProgressIndicator());
