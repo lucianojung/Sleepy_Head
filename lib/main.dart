@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sleepy_head/global_variables.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:sleepy_head/services/category_provider.dart';
 import 'package:sleepy_head/services/route_generator.dart';
 import 'package:sleepy_head/services/user_data_provider.dart';
 import 'package:sleepy_head/services/user_reward_provider.dart';
@@ -22,6 +23,8 @@ List<SingleChildWidget> providers = [
       create: (context) => AppConfigProvider()),
   ChangeNotifierProvider<UserRewardProvider>(
       create: (context) => UserRewardProvider()),
+  ChangeNotifierProvider<CategoryProvider>(
+      create: (context) => CategoryProvider()),
 ];
 
 class MyApp extends StatelessWidget {
