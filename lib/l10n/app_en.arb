@@ -1,13 +1,10 @@
 {
   "helloWorld": "Hello World!",
-  "welcomeTitle": "Hello and Welcome to Sleepy Head",
-  "newUserWelcomeText": "Hey there {username}! Welcome to your journey to the land of dreams :)\nI'm {avatarname} and I love sleeping...\n...so together, we're gonna get you sleeping like a baby-sloth!",
+  "welcomeTitle": "Welcome to SleepyHead",
+  "newUserWelcomeText": "I am {avatarname} and I need your help!",
   "@newUserWelcomeText": {
     "description": "the username",
     "placeholders": {
-      "username": {
-        "type": "String"
-      },
       "avatarname": {
         "type": "String"
       }

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:sleepy_head/services/user_data_provider.dart';
 import 'package:sleepy_head/views/rewards_home_view.dart';
 import 'package:sleepy_head/views/timer_home_view.dart';
 import 'package:provider/provider.dart';
 
-import '../models/reward.dart';
-import '../services/user_reward_provider.dart';
+import '../global_variables.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'home_home_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -23,6 +25,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late PageController _pageController;
 
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.initialPageIndex);
@@ -31,15 +35,21 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _pages = <Widget>[
-      TimerHomeView(),
-      HomeHomeView(),
-      RewardsHomeView()
-    ];
+    List<Widget> _pages = <Widget>[TimerHomeView(), HomeHomeView(), RewardsHomeView()];
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldState,
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.image),
+            )
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
           items: [
             BottomNavigationBarItem(
                 icon: const Icon(Icons.timer_outlined),
@@ -57,11 +67,23 @@ class _HomeViewState extends State<HomeView> {
           currentIndex: Provider.of<AppConfigProvider>(context, listen: true).appConfig.homeIndex,
           onTap: _onItemTapped,
         ),
-        body: PageView(
-            physics: const BouncingScrollPhysics(),
-            onPageChanged: ((index) => Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index)),
-            controller: _pageController,
-            children: _pages),
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/images/full_moon_background_1.png',
+              fit: BoxFit.fitHeight,
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.centerRight,
+            ),
+            PageView(
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: ((index) => Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index)),
+              controller: _pageController,
+              children: _pages,
+            ),
+          ],
+        ),
+        drawer: drawer(),
       ),
     );
   }
@@ -69,7 +91,80 @@ class _HomeViewState extends State<HomeView> {
   void _onItemTapped(int index) {
     print(index);
     Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index);
-    _pageController.animateToPage(index,
-        duration: const Duration(seconds: 1), curve: Curves.easeOut);
+    _pageController.animateToPage(index, duration: const Duration(seconds: 1), curve: Curves.easeOut);
+  }
+
+  drawer() {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountEmail: Text('info@iwiga.de'),
+            accountName: Text(Provider.of<UserDataProvider>(context).userData.username),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Image.asset('assets/images/day-night.png'),
+            ),
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.globe),
+            title: Text('Build.well.being'),
+            onTap: () {
+              _launchURL(GlobalVariables().buildWellBeingURL);
+            },
+          ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(FontAwesomeIcons.idCard),
+          //   title: Text(AppLocalizations.of(context)!.imprintName),
+          //   onTap: () {
+          //     Navigator.popAndPushNamed(context, '/impressum');
+          //   },
+          // ),
+          // ListTile(
+          //   leading: Icon(FontAwesomeIcons.cog),
+          //   title: Text(AppLocalizations.of(context)!.settingsName),
+          //   onTap: () {
+          //     Navigator.popAndPushNamed(context, '/settings');
+          //   },
+          // ),
+          Divider(),
+          ListTile(
+              title: Text('Version ${GlobalVariables().version}'),
+              onTap: () {
+                // showModalBottomSheet<int>(
+                //   backgroundColor: Colors.transparent,
+                //   context: context,
+                //   constraints: BoxConstraints(minWidth: 600, maxWidth: 600),
+                //   // isScrollControlled: true,
+                //   builder: (context) {
+                //     return SingleChildScrollView(
+                //       child: ModalPopupTemplate(
+                //         child: VersionUpdatePopup(),
+                //       ),
+                //     );
+                //   },
+                // );
+              }),
+          Divider(),
+          Expanded(
+              child: Align(
+            alignment: Alignment.bottomLeft,
+//            child: ListTile( // todo: logout/ login
+//              leading: Icon(FontAwesomeIcons.signOutAlt),
+//              title: Text('Ausloggen'),
+//            ),
+          )),
+        ],
+      ),
+    );
+  }
+
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

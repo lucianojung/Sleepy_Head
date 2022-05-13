@@ -9,6 +9,7 @@ class GlobalVariables {
 
   String get appTitle => 'Sleepy Head';
   String get version => '1.0.0';
+  String get buildWellBeingURL => 'https://buildwellbeing.fhstp.ac.at/';
 
   // initial values
 

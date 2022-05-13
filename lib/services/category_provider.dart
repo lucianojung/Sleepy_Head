@@ -78,6 +78,7 @@ class CategoryProvider extends ChangeNotifier {
         print('add Category ${category.categoryName}');
       }
     }
+    _categories.sort((a, b) => b.id - a.id);
     notifyListeners();
   }
 }

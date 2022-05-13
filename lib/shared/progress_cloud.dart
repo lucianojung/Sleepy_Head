@@ -55,7 +55,7 @@ class _ProgressCloudState extends State<ProgressCloud> {
           ),
           Text(
             category.categoryName,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.orange),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Theme.of(context).colorScheme.secondary),
           ),
         ],
       ),

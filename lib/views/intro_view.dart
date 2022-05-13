@@ -8,6 +8,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:rive/rive.dart' as rive;
+import 'package:sleepy_head/services/user_data_provider.dart';
 
 import '../theme_config.dart';
 
@@ -24,6 +26,7 @@ class _IntroductionViewState extends State<IntroductionView> {
   Duration _sleepTime = const Duration(hours: 8);
   Duration _bedTime = const Duration(hours: 8);
   var _showNextButton = true;
+  var textFieldController = TextEditingController(text: '');
   double _score = 1;
   Map<int, Duration> _showButtonMap = {};
 
@@ -41,7 +44,7 @@ class _IntroductionViewState extends State<IntroductionView> {
       footerPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       //decription padding
       imagePadding: const EdgeInsets.all(20),
-      pageColor: Theme.of(context).primaryColor,
+      pageColor: Colors.transparent,
       fullScreen: true,
       bodyAlignment: Alignment.bottomCenter,
       bodyFlex: 2
@@ -51,74 +54,77 @@ class _IntroductionViewState extends State<IntroductionView> {
       PageViewModel(
         title: AppLocalizations.of(context)!.welcomeTitle,
         bodyWidget: textWidget(AppLocalizations.of(context)!
-            .newUserWelcomeText('Sleepy Head', 'Sid')),
-        image: introImage('assets/images/slothBackground1.gif'),
-        decoration: pageDecoration,
-      ),
-      PageViewModel(
-          title: AppLocalizations.of(context)!.nameQuestionX(1),
-          bodyWidget: Column(
-            children: [
-              textWidget(AppLocalizations.of(context)!.question1),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DurationPicker(
-                  height: 200,
-                  duration: _sleepTime,
-                  onChange: (val) {
-                    setState(() {
-                      _sleepTime = val;
-                      _bedTime = Duration(minutes: _sleepTime.inMinutes);
-                      _showNextButton = _sleepTime.inMinutes >= 120;
-                    });
-                  },
-                  snapToMins: 5.0,
-                ),
+            .newUserWelcomeText('Sam')),
+        image: Stack(
+          children: [
+            introImage('assets/images/full_moon_background_1.png'),
+            SizedBox(
+              child: rive.RiveAnimation.asset(
+                'assets/Sam_Lit.riv',
+                artboard: 'Sam Hanging',
+                stateMachines: ['Sam_State_Hanging'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitHeight,
               ),
-            ],
-          ),
-          image: introImage('assets/images/slothBackground2.gif'),
-          decoration: pageDecoration,
-          useScrollView: false),
-      PageViewModel(
-          title: AppLocalizations.of(context)!.nameQuestionX(2),
-          bodyWidget: SizedBox(
-            width: 600,
-            child: Column(
-              children: [
-                textWidget(AppLocalizations.of(context)!.question2),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DurationPicker(
-                    height: 200,
-                    duration: Duration(
-                        minutes: max(_bedTime.inMinutes, _sleepTime.inMinutes)),
-                    onChange: (val) {
-                      setState(() {
-                        _bedTime = val;
-                        _showNextButton = _bedTime.inMinutes >= 120;
-                      });
-                    },
-                    snapToMins: 5.0,
-                  ),
-                ),
-              ],
             ),
-          ),
-          image: introImage('assets/images/slothBackground3.gif'),
-          decoration: pageDecoration,
-          useScrollView: false),
+          ],
+        ),
+        decoration: pageDecoration,
+        useScrollView: false
+      ),
       PageViewModel(
-        title: AppLocalizations.of(context)!.nameReward,
-        bodyWidget: textWidget(AppLocalizations.of(context)!.rewardText1),
-        image: introImage('assets/images/slothBackground4.gif'),
+        title: 'Who I am?',
+        bodyWidget: textWidget('I am Sam the sloth...'),
+        image: Stack(
+          children: [
+            introImage('assets/images/full_moon_background_1.png'),
+            SizedBox(
+              child: rive.RiveAnimation.asset(
+                'assets/Sam_Lit.riv',
+                artboard: 'Sam Hanging',
+                stateMachines: ['Sam_State_Hanging'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ],
+        ),
         decoration: pageDecoration,
       ),
       PageViewModel(
-        title: AppLocalizations.of(context)!.nameReward,
-        bodyWidget:
-            textWidget(AppLocalizations.of(context)!.rewardText5(_score)),
-        image: introImage('assets/images/slothBackground5.gif'),
+        title: 'And who are you?',
+        bodyWidget: Column(
+          children: [
+            textWidget('Fill in your nickname:'),
+            TextField(
+              controller: textFieldController,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                hintText: 'Enter your nickname',
+                hintStyle: TextStyle(color: Colors.white),
+                fillColor: Colors.white,
+                focusColor: Colors.white,
+                hoverColor: Colors.white
+              ),
+              cursorColor: Colors.white,
+            ),
+          ],
+        ),
+        image: Stack(
+          children: [
+            introImage('assets/images/full_moon_background_1.png'),
+            SizedBox(
+              child: rive.RiveAnimation.asset(
+                'assets/Sam_Lit.riv',
+                artboard: 'Sam Hanging',
+                stateMachines: ['Sam_State_Hanging'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ],
+        ),
         decoration: pageDecoration,
       ),
       //add more screen here
@@ -178,6 +184,8 @@ class _IntroductionViewState extends State<IntroductionView> {
   }
 
   void goHomepage(context) {
+    Provider.of<UserDataProvider>(context, listen: false).updateUsername(textFieldController.text);
+    print(textFieldController.text);
     Provider.of<AppConfigProvider>(context, listen: false)
         .update(DateTime.now());
     // Provider.of<AppConfigProvider>(context, listen: false)
@@ -194,6 +202,7 @@ class _IntroductionViewState extends State<IntroductionView> {
       colorBlendMode: BlendMode.lighten,
       color: Colors.white10,
       fit: BoxFit.fitHeight,
+      alignment: Alignment.centerRight,
       height: MediaQuery.of(context).size.height,
     );
   }

@@ -25,15 +25,6 @@ class _HomeHomeViewState extends State<HomeHomeView> {
     var width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        // Lottie.asset('assets/60346-rainforest.json', width: MediaQuery.of(context).size.width, fit: BoxFit.fitWidth),
-        Align(
-          child: Image.asset(
-            'assets/images/junglescene.png',
-            fit: BoxFit.fitHeight,
-            height: MediaQuery.of(context).size.height,
-          ),
-          alignment: Alignment.bottomRight,
-        ),
         rive.RiveAnimation.asset(
           'assets/Sam_Lit.riv',
           artboard: 'Sam Hanging',
@@ -43,6 +34,7 @@ class _HomeHomeViewState extends State<HomeHomeView> {
         ),
         Consumer<CategoryProvider>(
           builder: (context, data, _) => ListView.builder(
+            reverse: true,
             itemCount: data.categories.length,
             itemBuilder: (context, index) {
               var category = data.categories[index];
@@ -50,24 +42,14 @@ class _HomeHomeViewState extends State<HomeHomeView> {
             },
           ),
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(width: width),
-            SizedBox(
-              width: width,
-              child: ElevatedButton(
-                onPressed: (() {
-                  context.read<AppConfigProvider>().update(
-                        DateTime.fromMillisecondsSinceEpoch(1000),
-                      );
-                }),
-                child: const Text('Reset LastUpdate (-> to see welcome screen again after reload)'),
-              ),
-            ),
-            Text('Last Update: ${context.read<AppConfigProvider>().appConfig.lastUpdate.toString()}')
-          ],
-        ),
+        // ElevatedButton(
+        //   onPressed: (() {
+        //     context.read<AppConfigProvider>().update(
+        //       DateTime.fromMillisecondsSinceEpoch(1000),
+        //     );
+        //   }),
+        //   child: const Text('Reset LastUpdate (-> to see welcome screen again after reload)'),
+        // ),
       ],
     );
   }
