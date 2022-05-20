@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sleepy_head/models/category.dart';
+import 'package:sleepy_head/services/category_provider.dart';
 
 class ProgressCloud extends StatefulWidget {
   Category category;
@@ -16,6 +20,7 @@ class _ProgressCloudState extends State<ProgressCloud> {
   @override
   Widget build(BuildContext context) {
     var category = widget.category;
+    var szenarios = Provider.of<CategoryProvider>(context, listen: false).getSzenariosByCategory(category);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -23,7 +28,7 @@ class _ProgressCloudState extends State<ProgressCloud> {
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-              onTap: (() => Navigator.of(context).pushNamed('/learn', arguments: category)),
+              onTap: (() => Navigator.of(context).pushNamed('/learn', arguments: szenarios[Random().nextInt(szenarios.length)])),
               child: TweenAnimationBuilder(
                   tween: Tween(begin: category.progress - 0.1, end: category.progress),
                   duration: Duration(seconds: (category.progress != 0 && category.progress != 1) ? 1 : 0),
