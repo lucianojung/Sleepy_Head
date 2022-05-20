@@ -8,9 +8,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
-import 'package:sleepy_head/services/user_reward_provider.dart';
 
-import '../models/reward.dart';
 import '../theme_config.dart';
 
 class IntroductionView extends StatefulWidget {
@@ -79,7 +77,7 @@ class _IntroductionViewState extends State<IntroductionView> {
               ),
             ],
           ),
-          image: introImage('assets/images/slothBackground3.gif'),
+          image: introImage('assets/images/slothBackground2.gif'),
           decoration: pageDecoration,
           useScrollView: false),
       PageViewModel(
@@ -182,8 +180,8 @@ class _IntroductionViewState extends State<IntroductionView> {
   void goHomepage(context) {
     Provider.of<AppConfigProvider>(context, listen: false)
         .update(DateTime.now());
-    Provider.of<AppConfigProvider>(context, listen: false)
-        .updateInitialRoute('/');
+    // Provider.of<AppConfigProvider>(context, listen: false)
+    //     .updateInitialRoute('/');
     Navigator.popAndPushNamed(context, widget.homeRoute);
   }
 

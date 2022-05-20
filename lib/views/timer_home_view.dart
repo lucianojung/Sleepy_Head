@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../services/user_data_provider.dart';
-import '../utils/notification_utils.dart';
 
 class TimerHomeView extends StatefulWidget {
   TimerHomeView({Key? key}) : super(key: key);
@@ -17,6 +17,16 @@ class _TimerHomeViewState extends State<TimerHomeView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(
+          height: 600,
+          child: RiveAnimation.asset(
+            'assets/Sam_Lit.riv',
+            artboard: 'Sam Walking',
+            stateMachines: ['Sam_State_Walking'],
+            alignment: Alignment.topRight,
+            fit: BoxFit.fitHeight,
+          ),
+        ),
         TextButton.icon(
           icon: Icon(Icons.alarm, size: 32),
           onPressed: () async {
@@ -62,7 +72,6 @@ class _TimerHomeViewState extends State<TimerHomeView> {
               context
                   .read<UserDataProvider>()
                   .updatePlannedWakeupTime(result.endTime);
-              NotificationUtils.scheduleBedTimePushNotification(context);
             }
 
           },

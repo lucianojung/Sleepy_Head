@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sleepy_head/models/category.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:sleepy_head/views/learn_view.dart';
 
 import '../global_variables.dart';
 import '../views/home_view.dart';
@@ -24,6 +26,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 IntroductionView(homeRoute: args is String ? args : '/'));
+      case '/learn':
+        return MaterialPageRoute(
+            builder: (_) => LearnView(args is Category ? args : Category()));
       default:
         return _errorRoute(message: 'wrong routing name');
     }

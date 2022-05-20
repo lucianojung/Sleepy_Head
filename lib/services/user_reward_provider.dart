@@ -48,7 +48,7 @@ class UserRewardProvider extends ChangeNotifier {
 
   void addUnlockableReward(Reward reward, {UserData? user}) {
     _userRewards.add(
-      UserReward(user: user ?? UserData(), reward: reward, unlocked: false),
+      UserReward(user: user ?? UserData(), reward: reward),
     );
 
     updateSharedPrefrences();

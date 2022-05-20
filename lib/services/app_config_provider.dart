@@ -11,6 +11,8 @@ class AppConfigProvider extends ChangeNotifier {
 
   AppConfig get appConfig => _appConfig;
 
+  String get initialRoute => lastUpdateToday ? '/' : '/intro';
+
   AppConfigProvider() {
     initialState();
   }
@@ -27,16 +29,6 @@ class AppConfigProvider extends ChangeNotifier {
       );
 
   // CRUD Methods for local Variables
-
-  void updateInitialRoute(String route) {
-    if (_appConfig.initialRoute == route) {
-      return;
-    }
-    _appConfig.initialRoute = route;
-
-    updateSharedPrefrences();
-    notifyListeners();
-  }
 
   void updateHomeIndex(int index) {
     _appConfig.homeIndex = index;
@@ -69,8 +61,8 @@ class AppConfigProvider extends ChangeNotifier {
     if (result != null) {
       _appConfig = AppConfig.fromJson(json.decode(result));
     }
-    if (_appConfig.initialRoute == '') {
-      updateInitialRoute(lastUpdateToday ? '/' : '/intro');
+    if (_appConfig.lastUpdate == DateTime.fromMillisecondsSinceEpoch(0)) {
+      update(DateTime.fromMillisecondsSinceEpoch(1000));
     }
     notifyListeners();
   }

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../models/reward.dart';
 import '../services/user_reward_provider.dart';
-import '../utils/notification_utils.dart';
 import 'home_home_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -27,8 +26,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     _pageController = PageController(initialPage: widget.initialPageIndex);
-    NotificationUtils.scheduleBedTimePushNotification(context);
-
     super.initState();
   }
 
