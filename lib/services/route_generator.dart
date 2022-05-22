@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
-import 'package:sleepy_head/views/question_view.dart';
+import '../views/help_sam/question_view.dart';
 
 import '../global_variables.dart';
 import '../models/szenario.dart';

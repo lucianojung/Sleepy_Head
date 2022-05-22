@@ -24,4 +24,4 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
 
 );
 
-TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 18);
+TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 24);

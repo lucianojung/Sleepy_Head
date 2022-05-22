@@ -4,13 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:sleepy_head/services/user_data_provider.dart';
-import 'package:sleepy_head/views/rewards_home_view.dart';
-import 'package:sleepy_head/views/timer_home_view.dart';
+import 'package:sleepy_head/views/pages/help_sam_view.dart';
+import 'pages/rewards_home_view.dart';
+import 'pages/routine_home_view.dart';
 import 'package:provider/provider.dart';
 
 import '../global_variables.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'home_home_view.dart';
+import 'pages/home_home_view.dart';
 
 class HomeView extends StatefulWidget {
   final String title;
@@ -35,7 +36,12 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _pages = <Widget>[TimerHomeView(), HomeHomeView(), RewardsHomeView()];
+    List<Widget> _pages = <Widget>[
+      HomeHomeView(),
+      RoutineHomeView(),
+      HelpSamView(),
+      RewardsHomeView(),
+    ];
     return SafeArea(
       child: Scaffold(
         key: _scaffoldState,
@@ -52,17 +58,17 @@ class _HomeViewState extends State<HomeView> {
           selectedItemColor: Theme.of(context).colorScheme.secondary,
           items: [
             BottomNavigationBarItem(
-                icon: const Icon(Icons.timer_outlined),
-                activeIcon: const Icon(Icons.timer),
-                label: AppLocalizations.of(context)!.nameTimer),
-            BottomNavigationBarItem(
                 icon: const Icon(Icons.home_outlined),
                 activeIcon: const Icon(Icons.home),
                 label: AppLocalizations.of(context)!.nameHome),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.star_outline),
-                activeIcon: const Icon(Icons.star),
-                label: AppLocalizations.of(context)!.nameRewards)
+                icon: const Icon(Icons.timer_outlined),
+                activeIcon: const Icon(Icons.timer),
+                label: AppLocalizations.of(context)!.nameTimer),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.lightbulb_outline), activeIcon: const Icon(Icons.lightbulb), label: 'Help Sam'),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.star_outline), activeIcon: const Icon(Icons.star), label: 'Routine')
           ],
           currentIndex: Provider.of<AppConfigProvider>(context, listen: true).appConfig.homeIndex,
           onTap: _onItemTapped,
@@ -70,8 +76,8 @@ class _HomeViewState extends State<HomeView> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/images/full_moon_background_1.png',
-              fit: BoxFit.fitHeight,
+              'assets/images/background.png',
+              fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.centerRight,
             ),
@@ -83,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        drawer: drawer(),
+        // drawer: drawer(),
       ),
     );
   }
@@ -161,8 +167,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
