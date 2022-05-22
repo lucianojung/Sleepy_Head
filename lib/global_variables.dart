@@ -14,5 +14,6 @@ class GlobalVariables {
   // initial values
 
   String get initialRoute => '/intro';
-  int get initialHomePageIndex => 1;
+  String get homeRoute => '/';
+  int get initialHomePageIndex => 0;
 }
