@@ -7,16 +7,16 @@ import '../../models/szenario.dart';
 import '../../services/category_provider.dart';
 import '../../shared/my_material_button.dart';
 
-class QuestionView extends StatefulWidget {
+class SzenarioQuestionView extends StatefulWidget {
   Szenario szenario;
 
-  QuestionView(this.szenario, {Key? key}) : super(key: key);
+  SzenarioQuestionView({required this.szenario, Key? key}) : super(key: key);
 
   @override
-  _QuestionViewState createState() => _QuestionViewState();
+  _SzenarioQuestionViewState createState() => _SzenarioQuestionViewState();
 }
 
-class _QuestionViewState extends State<QuestionView> {
+class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
   var _selectedAnswer;
   var _checked = false;
 
@@ -98,8 +98,7 @@ class _QuestionViewState extends State<QuestionView> {
           Provider.of<CategoryProvider>(context, listen: false)
               .increaseProgress(szenario.id, isSzenarioId: true);
         }
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed('/szenario', arguments: [szenario, true]);
       }
-
   }
 }

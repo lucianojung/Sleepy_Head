@@ -17,7 +17,6 @@ class _HelpSamViewState extends State<HelpSamView> {
     return Center(
       child: Consumer<CategoryProvider>(
         builder: (context, data, _) => ListView.builder(
-          reverse: true,
           itemCount: data.categories.length,
           itemBuilder: (context, index) {
             var category = data.categories[index];

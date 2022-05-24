@@ -2,6 +2,7 @@ import 'package:bubble/bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import '../../shared/chat_widgets.dart';
 import '../../theme_config.dart';
 
 class HomeHomeView extends StatefulWidget {
@@ -28,8 +29,8 @@ class _HomeHomeViewState extends State<HomeHomeView> {
   void initState() {
     chat.add(SamBubble('Hey how are you doing?'));
     options.addAll([
-      AnswerButton('Thanks I\'m fine.'),
-      AnswerButton('Well today is not my day.'),
+      AnswerButton('Thanks I\'m fine.', callback('Thanks I\'m fine.')),
+      AnswerButton('Well today is not my day.', callback('Well today is not my day.')),
     ]);
     super.initState();
   }
@@ -79,45 +80,14 @@ class _HomeHomeViewState extends State<HomeHomeView> {
     );
   }
 
-  Widget AnswerButton(text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: (() async {
-          setState(() {
-            chat.add(UserBubble(text));
-            options.clear();
-          });
-          Future.delayed(const Duration(milliseconds: 500), () =>
-              setState(() => chat.add(SamBubble('Maybe I can chear you up. Tap on me!'))));
-        }),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Text(
-            text,
-            style: textStyle18,
-          ),
-        ),
-        style: buttonStyleUser,
-      ),
-    );
-  }
-
-  Bubble UserBubble(text) {
-    return Bubble(
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Text(text, style: textStyle18),
-        ),
-        style: bubbleStyleUser);
-  }
-
-  Bubble SamBubble(text) {
-    return Bubble(
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Text(text, style: textStyle18),
-        ),
-        style: bubbleStyleSam);
-  }
+  VoidCallback callback(text) {
+    return () async {
+      setState(() {
+        chat.add(UserBubble(text));
+        options.clear();
+      });
+      Future.delayed(const Duration(milliseconds: 500), () =>
+          setState(() => chat.add(SamBubble('Maybe I can chear you up. Tap on me!'))));
+    };
+}
 }

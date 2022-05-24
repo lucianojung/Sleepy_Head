@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:sleepy_head/models/category.dart';
 import 'package:sleepy_head/services/category_provider.dart';
 
+import '../theme_config.dart';
+
 class ProgressCloud extends StatefulWidget {
   Category category;
 
@@ -28,7 +30,7 @@ class _ProgressCloudState extends State<ProgressCloud> {
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-              onTap: (() => Navigator.of(context).pushNamed('/learn', arguments: szenarios[Random().nextInt(szenarios.length)])),
+              onTap: (() => Navigator.of(context).pushNamed('/szenario', arguments: [szenarios[Random().nextInt(szenarios.length)], false])),
               child: TweenAnimationBuilder(
                   tween: Tween(begin: category.progress - 0.1, end: category.progress),
                   duration: Duration(seconds: (category.progress != 0 && category.progress != 1) ? 1 : 0),
@@ -70,17 +72,17 @@ class _ProgressCloudState extends State<ProgressCloud> {
   List<Color> getColors(level) {
     switch (level) {
       case (0):
-        return [Colors.blue[700]!, Colors.blue[900]!];
+        return [cloudColors[400]!, cloudColors[500]!];
       case (1):
-        return [Colors.blue, Colors.blue[700]!];
+        return [cloudColors[300]!, cloudColors[400]!];
       case (2):
-        return [Colors.blue[300]!, Colors.blue];
+        return [cloudColors[200]!, cloudColors[300]!];
       case (3):
-        return [Colors.blue[100]!, Colors.blue[300]!];
+        return [cloudColors[100]!, cloudColors[200]!];
       case (4):
-        return [Colors.blue[50]!, Colors.blue[100]!];
+        return [cloudColors[50]!, cloudColors[100]!];
       default:
-        return [Colors.blue[50]!, Colors.blue[50]!];
+        return [cloudColors[50]!, cloudColors[50]!];
     }
   }
 }

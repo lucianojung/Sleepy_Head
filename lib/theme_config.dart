@@ -7,6 +7,14 @@ Color primaryColor = const Color(0xFF0f006d);
 Color secondaryColor = const Color(0xFFd129f9);
 Color lightBackgroundColor = const Color(0xFF3a3a3a);
 Color darkBackgroundColor = const Color(0xFF0a0a0a);
+MaterialColor cloudColors = const MaterialColor(0, {
+  500: Color(0xFF0f006d),
+  400: Color(0xFF291B80),
+  300: Color(0xFF50449B),
+  200: Color(0xFF8A81C4),
+  100: Color(0xFFC3BDED),
+  50: Color(0xFFDCD7FF),
+});
 
 ThemeData lightTheme = ThemeData.light().copyWith(
   primaryColor: primaryColor,
@@ -42,6 +50,18 @@ BubbleStyle bubbleStyleSam = BubbleStyle(
   alignment: Alignment.topLeft,
 );
 
+BubbleStyle bubbleStyleNarrator = BubbleStyle(
+  nip: BubbleNip.no,
+  // nipWidth: 16,
+  // nipHeight: 16,
+  color: primaryColor,
+  borderColor: Colors.transparent,
+  borderWidth: 1,
+  elevation: 4,
+  // margin: BubbleEdges.only(top: 8, right: 50),
+  alignment: Alignment.topCenter,
+);
+
 BubbleStyle bubbleStyleUser = BubbleStyle(
   nip: BubbleNip.rightTop,
   nipWidth: 16,
@@ -60,4 +80,7 @@ ButtonStyle buttonStyleUser = ButtonStyle(
   padding: MaterialStateProperty.all(EdgeInsets.all(4)),
   elevation: MaterialStateProperty.all(4),
   alignment: Alignment.topRight,
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+  ),
 );

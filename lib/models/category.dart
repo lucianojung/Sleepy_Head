@@ -42,31 +42,32 @@ class Category {
           Szenario(
             id: 1,
             difficulty: 0,
-            samSzenario: 'Hi there! You know, I sleep my prescribed 15-18 hours every night and still feel unrested. Can you help me with this?',
-            samAnswer: 'No problem we will find a solution for you!',
+            szenarioName: 'Fast, Faster, Rapid',
+            samSzenario: 'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
+            userAnswer: 'No problem we will find a solution for you!',
             questions: [
               Question(
                 id: 1,
-                question: 'What are the different types of sleep stages?',
-                answers: ['RAN and Non-RAN', 'REM and Non-REM', 'RUN and Non-RUN', 'RENN and Non-RENN'],
-                rightAnswer: 1
+                question: 'Why should Sam put his screens away at bedtime?',
+                answers: ['Because Sam is not allowed to have fun', 'Because he could go blind', 'Blue light emitted from screens negatively impacts the production of melatonin, the body\'s natural sleep-inducing hormone, thereby disrupts Sams sleep', 'because Sam might become nightmares'],
+                rightAnswer: 2
               )
             ],
-            info: 'Do you know: REM stands for Rapid eye movement...'
+            info: 'Do you know: In the first half of the day, get at least 30-40 minutes of direct sunlight to feel more alert. This can even be achieved by working next to a window with natural light coming through.'
           )
         ]
     ),
-    Category(
-        id: 2,
-        categoryName: 'Noises',
-    ),
-    Category(
-        id: 3,
-        categoryName: 'Food',
-    ),
-    Category(
-      id: 4,
-      categoryName: 'Routine',
-    ),
+    // Category(
+    //     id: 2,
+    //     categoryName: 'Noises',
+    // ),
+    // Category(
+    //     id: 3,
+    //     categoryName: 'Food',
+    // ),
+    // Category(
+    //   id: 4,
+    //   categoryName: 'Routine',
+    // ),
   ];
 }
