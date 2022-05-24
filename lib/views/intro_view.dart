@@ -28,11 +28,7 @@ class _IntroductionViewState extends State<IntroductionView> {
       PageViewModel(
           title: GradientText(
             AppLocalizations.of(context)!.welcomeTitle,
-            gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-              Color(0xFF2CBFFD),
-              Color(0xFF777BFC),
-              Color(0xFFD129F9),
-            ]),
+            gradient: headerGradient
           ),
           body: textWidget(AppLocalizations.of(context)!.newUserWelcomeText('Sam')),
           mainImage: SizedBox(

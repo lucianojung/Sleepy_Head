@@ -64,11 +64,11 @@ class _HomeViewState extends State<HomeView> {
             BottomNavigationBarItem(
                 icon: const Icon(Icons.timer_outlined),
                 activeIcon: const Icon(Icons.timer),
-                label: AppLocalizations.of(context)!.nameTimer),
+                label: 'Routine'),
             BottomNavigationBarItem(
                 icon: const Icon(Icons.lightbulb_outline), activeIcon: const Icon(Icons.lightbulb), label: 'Help Sam'),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.star_outline), activeIcon: const Icon(Icons.star), label: 'Routine')
+                icon: const Icon(Icons.star_outline), activeIcon: const Icon(Icons.star), label: 'Reward')
           ],
           currentIndex: Provider.of<AppConfigProvider>(context, listen: true).appConfig.homeIndex,
           onTap: _onItemTapped,

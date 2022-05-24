@@ -1,6 +1,6 @@
 class AppConfig {
   var userId = -1;
-  var homeIndex = 1;
+  var homeIndex = 0;
   var lastUpdate = DateTime.fromMillisecondsSinceEpoch(0);
 
   AppConfig({userId, initialRoute, homeIndex, lastUpdate}){
