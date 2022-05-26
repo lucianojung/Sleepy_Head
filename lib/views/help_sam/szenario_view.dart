@@ -1,7 +1,6 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-import 'package:sleepy_head/services/route_generator.dart';
 
 import '../../models/szenario.dart';
 import '../../shared/chat_widgets.dart';
@@ -52,7 +51,7 @@ class _SzenarioViewState extends State<SzenarioView> {
           GestureDetector(
             onTap: () => _hitGreet(),
             child: RiveAnimation.asset(
-              'assets/Sam_Lit.riv',
+              'assets/sam_lit.riv',
               artboard: 'Sam Greeting',
               stateMachines: ['Sam_State_Greeting'],
               alignment: Alignment.topRight,
@@ -111,6 +110,6 @@ class _SzenarioViewState extends State<SzenarioView> {
 
 
   void onContinue(Szenario szenario, context) {
-    widget.isInfo ? Navigator.of(context).popUntil((route) => route.isFirst) : Navigator.of(context).pushNamed('/szenarioQuestion', arguments: [szenario]);
+    widget.isInfo ? Navigator.of(context).pushNamed('/szenarioCelebration', arguments: ['You gained 10 Points!']) : Navigator.of(context).pushNamed('/szenarioQuestion', arguments: [szenario]);
   }
 }

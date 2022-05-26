@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,6 +27,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late PageController _pageController;
+  final starSize = 18.0;
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
@@ -36,6 +39,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     List<Widget> _pages = <Widget>[
       HomeHomeView(),
       RoutineHomeView(),
@@ -62,9 +66,7 @@ class _HomeViewState extends State<HomeView> {
                 activeIcon: const Icon(Icons.home),
                 label: AppLocalizations.of(context)!.nameHome),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.timer_outlined),
-                activeIcon: const Icon(Icons.timer),
-                label: 'Routine'),
+                icon: const Icon(Icons.timer_outlined), activeIcon: const Icon(Icons.timer), label: 'Routine'),
             BottomNavigationBarItem(
                 icon: const Icon(Icons.lightbulb_outline), activeIcon: const Icon(Icons.lightbulb), label: 'Help Sam'),
             BottomNavigationBarItem(
@@ -80,6 +82,25 @@ class _HomeViewState extends State<HomeView> {
               fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.centerRight,
+            ),
+            for (int i = 0; i < 10; i++)
+              Positioned(
+                child: Image.asset(
+                  'assets/images/Star.png',
+                ),
+                width: starSize,
+                height: starSize,
+                top: Random().nextDouble() * size.height - starSize,
+                left: Random().nextDouble() * size.width - starSize,
+              ),
+            Positioned(
+              child: Image.asset(
+                'assets/images/Moon.png',
+              ),
+              width: size.width / 5,
+              height: size.width / 5,
+              top: 64,
+              left: 96,
             ),
             PageView(
               physics: const BouncingScrollPhysics(),

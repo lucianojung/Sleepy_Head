@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 
@@ -33,7 +32,7 @@ class _IntroductionViewState extends State<IntroductionView> {
           body: textWidget(AppLocalizations.of(context)!.newUserWelcomeText('Sam')),
           mainImage: SizedBox(
             child: rive.RiveAnimation.asset(
-              'assets/Sam_Lit.riv',
+              'assets/sam_lit.riv',
               artboard: 'Sam Hanging',
               stateMachines: ['Sam_State_Hanging'],
               alignment: Alignment.topRight,
@@ -46,16 +45,12 @@ class _IntroductionViewState extends State<IntroductionView> {
       PageViewModel(
         title: GradientText(
           'Who I am!',
-          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-            Color(0xFF2CBFFD),
-            Color(0xFF777BFC),
-            Color(0xFFD129F9),
-          ]),
+          gradient: headerGradient
         ),
         body: textWidget('I am Sam the sloth...'),
         mainImage: SizedBox(
           child: rive.RiveAnimation.asset(
-            'assets/Sam_Lit.riv',
+            'assets/sam_lit.riv',
             artboard: 'Sam Hanging',
             stateMachines: ['Sam_State_Hanging'],
             alignment: Alignment.topRight,
@@ -68,11 +63,7 @@ class _IntroductionViewState extends State<IntroductionView> {
       PageViewModel(
         title: GradientText(
           'Who are you?',
-          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-            Color(0xFF2CBFFD),
-            Color(0xFF777BFC),
-            Color(0xFFD129F9),
-          ]),
+          gradient: headerGradient
         ),
         body: Column(
           children: [
@@ -102,7 +93,7 @@ class _IntroductionViewState extends State<IntroductionView> {
         ),
         mainImage: SizedBox(
           child: rive.RiveAnimation.asset(
-            'assets/Sam_Lit.riv',
+            'assets/sam_lit.riv',
             artboard: 'Sam Hanging',
             stateMachines: ['Sam_State_Hanging'],
             alignment: Alignment.topRight,
@@ -195,11 +186,13 @@ class GradientText extends StatelessWidget {
     this.text, {
     required this.gradient,
     this.style,
+    this.textAlign = TextAlign.start,
   });
 
   final String text;
   final TextStyle? style;
   final Gradient gradient;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +201,7 @@ class GradientText extends StatelessWidget {
       shaderCallback: (bounds) => gradient.createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
-      child: Text(text, style: style),
+      child: Text(text, style: style, textAlign: textAlign,),
     );
   }
 }

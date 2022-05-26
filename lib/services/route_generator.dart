@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
+import 'package:sleepy_head/views/help_sam/celebration_view.dart';
 import 'package:sleepy_head/views/help_sam/szenario_view.dart';
 import '../views/help_sam/question_view.dart';
 
@@ -33,6 +34,9 @@ class RouteGenerator {
       case '/szenarioQuestion':
         return MaterialPageRoute(
             builder: (_) => SzenarioQuestionView(szenario: args[0] is Szenario ? args[0] : Szenario()));
+      case '/szenarioCelebration':
+        return MaterialPageRoute(
+            builder: (_) => CelebrationView(text: args[0] is String ? args[0] : ''));
       default:
         return _errorRoute(message: 'wrong routing name');
     }

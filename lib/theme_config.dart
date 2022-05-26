@@ -34,6 +34,7 @@ Gradient headerGradient = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [Color(0xFF2CBFFD), Color(0xFF777BFC), Color(0xFFD129F9)]);
+TextStyle headerStyle = TextStyle(fontSize: 54);
 TextStyle subheaderStyle = TextStyle(color: Colors.white, fontSize: 32);
 TextStyle textStyle = TextStyle(color: Colors.white, fontSize: 24);
 TextStyle textStyle18 = TextStyle(color: Colors.white, fontSize: 18);

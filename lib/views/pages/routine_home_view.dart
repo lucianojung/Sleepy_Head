@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'package:sleepy_head/theme_config.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'package:provider/provider.dart';
@@ -14,22 +13,11 @@ class RoutineHomeView extends StatefulWidget {
 }
 
 class _RoutineHomeViewState extends State<RoutineHomeView> {
-  bool _toggled = true;
   List<bool> _selections = List.generate(3, (_) => false);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // SizedBox(
-        //   height: 600,
-        //   child: RiveAnimation.asset(
-        //     'assets/Sam_Lit.riv',
-        //     artboard: 'Sam Walking',
-        //     stateMachines: ['Sam_State_Walking'],
-        //     alignment: Alignment.topRight,
-        //     fit: BoxFit.fitHeight,
-        //   ),
-        // ),
         TextButton.icon(
           icon: Icon(Icons.alarm, size: 28, color: Colors.white),
           onPressed: () async => onShowTimeRangePicker(),
