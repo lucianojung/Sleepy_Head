@@ -68,6 +68,14 @@ class UserDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  void updateCorrectAnswers(int newCorrectAnswers) {
+    _userData.correctAnswers += newCorrectAnswers;
+
+    updateSharedPrefrences();
+    notifyListeners();
+  }
+
   void updatePlannedBedTime(TimeOfDay plannedBedTime) {
     _userData.plannedBedTime = plannedBedTime;
 

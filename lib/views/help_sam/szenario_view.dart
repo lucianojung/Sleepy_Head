@@ -1,16 +1,16 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:sleepy_head/models/szenario_handler.dart';
 
 import '../../models/szenario.dart';
 import '../../shared/chat_widgets.dart';
 import '../../shared/my_material_button.dart';
 
 class SzenarioView extends StatefulWidget {
-  Szenario szenario;
-  bool isInfo;
+  SzenarioHandler szenarioHandler;
 
-  SzenarioView({required this.szenario, required this.isInfo, Key? key}) : super(key: key);
+  SzenarioView({required this.szenarioHandler, Key? key}) : super(key: key);
 
   @override
   _SzenarioViewState createState() => _SzenarioViewState();
@@ -32,13 +32,16 @@ class _SzenarioViewState extends State<SzenarioView> {
 
   @override
   void initState() {
-    for (String chatText in (widget.isInfo ? widget.szenario.info.split('\n') : widget.szenario.samSzenario.split('\n'))) {
+    for (String chatText in (widget.szenarioHandler.isInfoStep
+        ? widget.szenarioHandler.szenario.info.split('\n')
+        : widget.szenarioHandler.szenario.samSzenario.split('\n'))) {
       setState(() => chat.add(SamBubble(chatText)));
     }
     Future.delayed(
         const Duration(milliseconds: 500),
-        () => setState(
-            () => options.add(AnswerButton(widget.isInfo ? 'Got it!' : widget.szenario.userAnswer, callback(widget.isInfo ? 'Got it!' : widget.szenario.userAnswer)))));
+        () => setState(() => options.add(AnswerButton(
+            widget.szenarioHandler.isInfoStep ? 'Got it!' : widget.szenarioHandler.szenario.userAnswer,
+            callback(widget.szenarioHandler.isInfoStep ? 'Got it!' : widget.szenarioHandler.szenario.userAnswer)))));
     super.initState();
   }
 
@@ -80,16 +83,15 @@ class _SzenarioViewState extends State<SzenarioView> {
                     children: options,
                   ),
                 ),
-
-                if(_answered)
+                if (_answered)
                   Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MyMaterialButton(
-                    text: 'CONTINUE',
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    onPressed: () => onContinue(widget.szenario, context),
+                    padding: const EdgeInsets.all(8.0),
+                    child: MyMaterialButton(
+                      text: 'CONTINUE',
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
+                    ),
                   ),
-                ),
               ],
             ),
           )
@@ -108,8 +110,13 @@ class _SzenarioViewState extends State<SzenarioView> {
     };
   }
 
-
   void onContinue(Szenario szenario, context) {
-    widget.isInfo ? Navigator.of(context).pushNamed('/szenarioCelebration', arguments: ['You gained 10 Points!']) : Navigator.of(context).pushNamed('/szenarioQuestion', arguments: [szenario]);
+    widget.szenarioHandler.followingSteps.removeAt(0);
+    if (widget.szenarioHandler.followingSteps[0] == 'Question') {
+      widget.szenarioHandler.currentQuestionIndex++;
+    }
+    (!(widget.szenarioHandler.followingSteps.length == 1) || widget.szenarioHandler.correctAnswers > 0)
+        ? Navigator.of(context).pushNamed(widget.szenarioHandler.nextRoute, arguments: [widget.szenarioHandler])
+        : Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sleepy_head/models/szenario_handler.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:sleepy_head/views/help_sam/celebration_view.dart';
 import 'package:sleepy_head/views/help_sam/szenario_view.dart';
 import '../views/help_sam/question_view.dart';
 
 import '../global_variables.dart';
-import '../models/szenario.dart';
 import '../views/home_view.dart';
 import '../views/intro_view.dart';
 
@@ -30,13 +30,13 @@ class RouteGenerator {
                 IntroductionView(homeRoute: args[0] is String ? args[0] : '/'));
       case '/szenario':
         return MaterialPageRoute(
-            builder: (_) => SzenarioView(szenario: args[0] is Szenario ? args[0] : Szenario(), isInfo: args[1] is bool ? args[1] : false,));
+            builder: (_) => SzenarioView(szenarioHandler: args[0] is SzenarioHandler ? args[0] : SzenarioHandler()));
       case '/szenarioQuestion':
         return MaterialPageRoute(
-            builder: (_) => SzenarioQuestionView(szenario: args[0] is Szenario ? args[0] : Szenario()));
+            builder: (_) => SzenarioQuestionView(szenarioHandler: args[0] is SzenarioHandler ? args[0] : SzenarioHandler()));
       case '/szenarioCelebration':
         return MaterialPageRoute(
-            builder: (_) => CelebrationView(text: args[0] is String ? args[0] : ''));
+            builder: (_) => CelebrationView(szenarioHandler: args[0] is SzenarioHandler ? args[0] : SzenarioHandler()));
       default:
         return _errorRoute(message: 'wrong routing name');
     }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -83,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.centerRight,
             ),
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Provider.of<UserDataProvider>(context).userData.correctAnswers; i++)
               Positioned(
                 child: Image.asset(
                   'assets/images/Star.png',
@@ -110,13 +111,13 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        // drawer: drawer(),
+        drawer: drawer(),
       ),
     );
   }
 
   void _onItemTapped(int index) {
-    print(index);
+    // print(index);
     Provider.of<AppConfigProvider>(context, listen: false).updateHomeIndex(index);
     _pageController.animateToPage(index, duration: const Duration(seconds: 1), curve: Curves.easeOut);
   }
@@ -126,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountEmail: Text('info@iwiga.de'),
+            accountEmail: Text('Created at FHSTP'),
             accountName: Text(Provider.of<UserDataProvider>(context).userData.username),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
@@ -134,7 +135,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           ListTile(
-            leading: Icon(FontAwesomeIcons.globe),
+            leading: Icon(FontAwesomeIcons.globe, color: Colors.white),
             title: Text('Build.well.being'),
             onTap: () {
               _launchURL(GlobalVariables().buildWellBeingURL);
@@ -157,30 +158,16 @@ class _HomeViewState extends State<HomeView> {
           // ),
           Divider(),
           ListTile(
-              title: Text('Version ${GlobalVariables().version}'),
-              onTap: () {
-                // showModalBottomSheet<int>(
-                //   backgroundColor: Colors.transparent,
-                //   context: context,
-                //   constraints: BoxConstraints(minWidth: 600, maxWidth: 600),
-                //   // isScrollControlled: true,
-                //   builder: (context) {
-                //     return SingleChildScrollView(
-                //       child: ModalPopupTemplate(
-                //         child: VersionUpdatePopup(),
-                //       ),
-                //     );
-                //   },
-                // );
-              }),
+              title: Text('Version ${GlobalVariables().version}'),),
           Divider(),
           Expanded(
               child: Align(
             alignment: Alignment.bottomLeft,
-//            child: ListTile( // todo: logout/ login
-//              leading: Icon(FontAwesomeIcons.signOutAlt),
-//              title: Text('Ausloggen'),
-//            ),
+           child: ListTile( // todo: logout/ login
+             leading: Icon(FontAwesomeIcons.arrowRightFromBracket, color: Colors.white,),
+             title: Text('Close App'),
+             onTap: () => SystemNavigator.pop()
+           ),
           )),
         ],
       ),
@@ -188,8 +175,9 @@ class _HomeViewState extends State<HomeView> {
   }
 
   _launchURL(url) async {
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    var uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }

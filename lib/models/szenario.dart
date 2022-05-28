@@ -1,13 +1,11 @@
 import 'package:sleepy_head/models/question.dart';
 
-import 'dart:convert' as convert;
-
 class Szenario {
   var id = -1;
   var szenarioName = 'Szenario';
   var samSzenario = '';
   var userAnswer = '';
-  List<Question> questions = [];
+  List<QuestionAndAnswer> questions = [];
   var difficulty = 0;
   var info = '';
 
@@ -36,7 +34,7 @@ class Szenario {
         szenarioName = json['szenarioName'],
         samSzenario = json['samSzenario'],
         userAnswer = json['userAnswer'],
-        questions = List<Question>.from(json['questions'].map((x) => Question.fromJson(x))).toList(),
+        questions = List<QuestionAndAnswer>.from(json['questions'].map((x) => QuestionAndAnswer.fromJson(x))).toList(),
         difficulty = json['difficulty'],
         info = json['info']
   ;

@@ -29,7 +29,7 @@ class AppConfigProvider extends ChangeNotifier {
             day: _appConfig.lastUpdate.day + 1, hour: 0, minute: 0, second: 0),
       );
 
-  get isFirstTime => _appConfig.lastUpdate.isAtSameMomentAs(DateTime.fromMillisecondsSinceEpoch(0));
+  get isFirstTime => _appConfig.lastUpdate.isAtSameMomentAs(DateTime.fromMillisecondsSinceEpoch(1000));
 
   // CRUD Methods for local Variables
 

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sleepy_head/models/category.dart';
+import 'package:sleepy_head/models/szenario_handler.dart';
 import 'package:sleepy_head/services/category_provider.dart';
 
 import '../theme_config.dart';
@@ -30,7 +31,15 @@ class _ProgressCloudState extends State<ProgressCloud> {
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-              onTap: (() => Navigator.of(context).pushNamed('/szenario', arguments: [szenarios[Random().nextInt(szenarios.length)], false])),
+              onTap: (() {
+                var szenario = szenarios[Random().nextInt(szenarios.length)];
+                List<String> followingSteps = ['Start'];
+                followingSteps.addAll(List<String>.generate(szenario.questions.length, (_) => 'Question'));
+                followingSteps.addAll(['Info', 'Celebrate']);
+                var szenarioHandler = SzenarioHandler(szenario: szenario, followingSteps: followingSteps);
+                Navigator.of(context).pushNamed(
+                    '/szenario', arguments: [szenarioHandler]);
+              }),
               child: TweenAnimationBuilder(
                   tween: Tween(begin: category.progress - 0.1, end: category.progress),
                   duration: Duration(seconds: (category.progress != 0 && category.progress != 1) ? 1 : 0),
@@ -62,7 +71,7 @@ class _ProgressCloudState extends State<ProgressCloud> {
           ),
           Text(
             category.categoryName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Theme.of(context).colorScheme.secondary),
+            style: textStyle,
           ),
         ],
       ),

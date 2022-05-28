@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+import 'package:sleepy_head/services/user_data_provider.dart';
 import 'package:sleepy_head/theme_config.dart';
 
+import '../../models/szenario_handler.dart';
+import '../../shared/gradient_text.dart';
 import '../../shared/my_material_button.dart';
-import '../intro_view.dart';
 
 class CelebrationView extends StatefulWidget {
-  String text;
+  SzenarioHandler szenarioHandler;
 
-  CelebrationView({required this.text, Key? key}) : super(key: key);
+  CelebrationView({required this.szenarioHandler, Key? key}) : super(key: key);
 
   @override
   _CelebrationViewState createState() => _CelebrationViewState();
@@ -39,7 +42,7 @@ class _CelebrationViewState extends State<CelebrationView> {
             width: MediaQuery.of(context).size.width,
             child: GradientText(
               // 'You won 10 Points!',
-              widget.text,
+              widget.szenarioHandler.celebrationText,
               gradient: headerGradient,
               style: headerStyle,
               textAlign: TextAlign.center,
@@ -63,6 +66,11 @@ class _CelebrationViewState extends State<CelebrationView> {
 
 
   void onContinue(context) {
+    if (widget.szenarioHandler.wrongAnswers <= 0) {
+      // todo enable reward on all answers right
+      // Provider.of<UserRewardProvider>(context, listen: false).increaseProgress(szenario.id, isSzenarioId: true);
+    }
+    Provider.of<UserDataProvider>(context, listen: false).updateCorrectAnswers(widget.szenarioHandler.correctAnswers);
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }

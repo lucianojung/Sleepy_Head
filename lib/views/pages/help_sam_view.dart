@@ -19,7 +19,7 @@ class _HelpSamViewState extends State<HelpSamView> {
         builder: (context, data, _) => ListView.builder(
           itemCount: data.categories.length,
           itemBuilder: (context, index) {
-            var category = data.categories[index];
+            var category = data.categories[data.categories.length - index - 1];
             return ProgressCloud(category);
           },
         ),

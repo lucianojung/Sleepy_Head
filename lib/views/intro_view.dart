@@ -7,6 +7,7 @@ import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:sleepy_head/services/user_data_provider.dart';
 
+import '../shared/gradient_text.dart';
 import '../theme_config.dart';
 
 class IntroductionView extends StatefulWidget {
@@ -177,31 +178,6 @@ class _IntroductionViewState extends State<IntroductionView> {
         style: textStyle,
         textAlign: TextAlign.center,
       ),
-    );
-  }
-}
-
-class GradientText extends StatelessWidget {
-  const GradientText(
-    this.text, {
-    required this.gradient,
-    this.style,
-    this.textAlign = TextAlign.start,
-  });
-
-  final String text;
-  final TextStyle? style;
-  final Gradient gradient;
-  final TextAlign textAlign;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Text(text, style: style, textAlign: textAlign,),
     );
   }
 }

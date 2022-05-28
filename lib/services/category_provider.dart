@@ -24,7 +24,7 @@ class CategoryProvider extends ChangeNotifier {
   List<Szenario> getSzenariosByCategory(category) => _categories
       .firstWhere((element) => element.id == category.id)
       .szenarios
-      .where((element) => element.difficulty <= category.level)
+      // .where((element) => element.difficulty <= category.level) // todo add more szenarios to add this filter showing adding harder szenarios with more progress
       .toList();
 
   Category getCategoryBySzenarioId(szenarioId) => _categories.firstWhere(
