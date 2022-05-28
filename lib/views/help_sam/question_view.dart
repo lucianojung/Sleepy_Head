@@ -44,42 +44,41 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
                   child: Text(currentQuestion.question, style: subheaderStyle, textAlign: TextAlign.left),
                 ),
                 Expanded(
+                  flex: 2,
                   child: GridView.count(
-                      childAspectRatio: 16 / 9,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      padding: EdgeInsets.all(16),
-                      children: [
-                        for (var answer in currentQuestion.answers)
-                          MyMaterialButton(
-                            text: answer,
-                            onPressed: () => setState(() {
-                              var index = currentQuestion.answers.indexWhere((element) => element == answer);
-                              _selectedIndex = _selectedIndex == index ? -1 : index;
-                            }),
-                            backgroundColor: (_selectedIndex >= 0 && currentQuestion.answers[_selectedIndex] == answer)
-                                ? MaterialStateProperty.all(Colors.green)
-                                : MaterialStateProperty.all(Colors.white),
-                          ),
-                      ],
-                    ),
-                ),
-                if (_selectedIndex >= 0)
-                  AnimatedOpacity(
-                    opacity: _checked ? 1 : 0,
-                    duration: Duration(milliseconds: 100),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: Text(
-                        currentQuestion.feedback[_selectedIndex],
-                        textAlign: TextAlign.center,
-                        style: textStyle,
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    ),
+                    childAspectRatio: 16 / 9,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    padding: EdgeInsets.all(16),
+                    children: [
+                      for (var answer in currentQuestion.answers)
+                        MyMaterialButton(
+                          text: answer,
+                          onPressed: () => setState(() {
+                            var index = currentQuestion.answers.indexWhere((element) => element == answer);
+                            _selectedIndex = _selectedIndex == index ? -1 : index;
+                          }),
+                          backgroundColor: (_selectedIndex >= 0 && currentQuestion.answers[_selectedIndex] == answer)
+                              ? MaterialStateProperty.all(Colors.green)
+                              : MaterialStateProperty.all(Colors.white),
+                        ),
+                    ],
                   ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Text(
+                      _checked ? currentQuestion.feedback[_selectedIndex] : '',
+                      textAlign: TextAlign.center,
+                      style: textStyle,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  ),
+                ),
                 Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
@@ -100,7 +99,8 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
                       child: MyMaterialButton(
                         text: _checked ? 'CONTINUE' : 'CHECK',
                         backgroundColor: MaterialStateProperty.all(Colors.white),
-                        onPressed: () => _selectedIndex != -1 ? onAnswerClicked(widget.szenarioHandler.szenario, context) : null,
+                        onPressed: () =>
+                            _selectedIndex != -1 ? onAnswerClicked(widget.szenarioHandler.szenario, context) : null,
                       ),
                     ),
                   ],
@@ -125,7 +125,7 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
         widget.szenarioHandler.correctAnswers++;
       }
       widget.szenarioHandler.followingSteps.removeAt(0);
-      if(widget.szenarioHandler.followingSteps[0] == 'Question') {
+      if (widget.szenarioHandler.followingSteps[0] == 'Question') {
         widget.szenarioHandler.currentQuestionIndex++;
       }
       Navigator.of(context).pushNamed(widget.szenarioHandler.nextRoute, arguments: [widget.szenarioHandler]);
