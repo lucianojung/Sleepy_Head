@@ -54,7 +54,10 @@ class _HomeViewState extends State<HomeView> {
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.image),
+              child: GestureDetector(
+                child: Image.asset('assets/images/logo.png'),
+                // onPressed: () => print('todo navigate to profile page'),
+              ),
             )
           ],
         ),
@@ -77,6 +80,8 @@ class _HomeViewState extends State<HomeView> {
           onTap: _onItemTapped,
         ),
         body: Stack(
+          alignment: Alignment.centerRight,
+          fit: StackFit.expand,
           children: [
             Image.asset(
               'assets/images/background.png',
@@ -95,8 +100,11 @@ class _HomeViewState extends State<HomeView> {
                 left: Random().nextDouble() * size.width - starSize,
               ),
             Positioned(
-              child: Image.asset(
-                'assets/images/Moon.png',
+              child: Opacity(
+                opacity: 0.5,
+                child: Image.asset(
+                  'assets/images/Moon.png',
+                ),
               ),
               width: size.width / 5,
               height: size.width / 5,
@@ -131,7 +139,7 @@ class _HomeViewState extends State<HomeView> {
             accountName: Text(Provider.of<UserDataProvider>(context).userData.username),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Image.asset('assets/images/day-night.png'),
+              child: Image.asset('assets/images/logo.png'),
             ),
           ),
           ListTile(
@@ -158,16 +166,20 @@ class _HomeViewState extends State<HomeView> {
           // ),
           Divider(),
           ListTile(
-              title: Text('Version ${GlobalVariables().version}'),),
+            title: Text('Version ${GlobalVariables().version}'),
+          ),
           Divider(),
           Expanded(
               child: Align(
             alignment: Alignment.bottomLeft,
-           child: ListTile( // todo: logout/ login
-             leading: Icon(FontAwesomeIcons.arrowRightFromBracket, color: Colors.white,),
-             title: Text('Close App'),
-             onTap: () => SystemNavigator.pop()
-           ),
+            child: ListTile(
+                // todo: logout/ login
+                leading: Icon(
+                  FontAwesomeIcons.arrowRightFromBracket,
+                  color: Colors.white,
+                ),
+                title: Text('Close App'),
+                onTap: () => SystemNavigator.pop()),
           )),
         ],
       ),

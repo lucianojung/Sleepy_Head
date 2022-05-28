@@ -48,54 +48,56 @@ class _SzenarioViewState extends State<SzenarioView> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: Stack(
-        children: [
-          GestureDetector(
-            onTap: () => _hitGreet(),
-            child: RiveAnimation.asset(
-              'assets/sam_lit.riv',
-              artboard: 'Sam Greeting',
-              stateMachines: ['Sam_State_Greeting'],
-              alignment: Alignment.topRight,
-              fit: BoxFit.fitWidth,
-              onInit: _onRiveInit,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            GestureDetector(
+              onTap: () => _hitGreet(),
+              child: RiveAnimation.asset(
+                'assets/sam_lit.riv',
+                artboard: 'Sam Greeting',
+                stateMachines: ['Sam_State_Greeting'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitWidth,
+                onInit: _onRiveInit,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: (() => _hitGreet),
-                  child: SizedBox(
-                    height: 300,
-                    width: width,
-                    child: Container(),
-                  ),
-                ),
-                for (Bubble message in chat) message,
-                Expanded(
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.end,
-                    alignment: WrapAlignment.end,
-                    children: options,
-                  ),
-                ),
-                if (_answered)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MyMaterialButton(
-                      text: 'CONTINUE',
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: (() => _hitGreet),
+                    child: SizedBox(
+                      height: 300,
+                      width: width,
+                      child: Container(),
                     ),
                   ),
-              ],
-            ),
-          )
-        ],
+                  for (Bubble message in chat) message,
+                  Expanded(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.end,
+                      alignment: WrapAlignment.end,
+                      children: options,
+                    ),
+                  ),
+                  if (_answered)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MyMaterialButton(
+                        text: 'CONTINUE',
+                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                        onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
+                      ),
+                    ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

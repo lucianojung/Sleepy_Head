@@ -24,87 +24,89 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
   @override
   Widget build(BuildContext context) {
     var currentQuestion = widget.szenarioHandler.currentQuestion;
-    return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 600,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  widget.szenarioHandler.szenario.szenarioName,
-                  textAlign: TextAlign.center,
-                  style: textStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(currentQuestion.question, style: subheaderStyle, textAlign: TextAlign.left),
-              ),
-              Expanded(
-                child: GridView.count(
-                    childAspectRatio: 16 / 9,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    padding: EdgeInsets.all(16),
-                    children: [
-                      for (var answer in currentQuestion.answers)
-                        MyMaterialButton(
-                          text: answer,
-                          onPressed: () => setState(() {
-                            var index = currentQuestion.answers.indexWhere((element) => element == answer);
-                            _selectedIndex = _selectedIndex == index ? -1 : index;
-                          }),
-                          backgroundColor: (_selectedIndex >= 0 && currentQuestion.answers[_selectedIndex] == answer)
-                              ? MaterialStateProperty.all(Colors.green)
-                              : MaterialStateProperty.all(Colors.white),
-                        ),
-                    ],
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 600,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    widget.szenarioHandler.szenario.szenarioName,
+                    textAlign: TextAlign.center,
+                    style: textStyle,
                   ),
-              ),
-              if (_selectedIndex >= 0)
-                AnimatedOpacity(
-                  opacity: _checked ? 1 : 0,
-                  duration: Duration(milliseconds: 100),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    child: Text(
-                      currentQuestion.feedback[_selectedIndex],
-                      textAlign: TextAlign.center,
-                      style: textStyle,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(currentQuestion.question, style: subheaderStyle, textAlign: TextAlign.left),
+                ),
+                Expanded(
+                  child: GridView.count(
+                      childAspectRatio: 16 / 9,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      padding: EdgeInsets.all(16),
+                      children: [
+                        for (var answer in currentQuestion.answers)
+                          MyMaterialButton(
+                            text: answer,
+                            onPressed: () => setState(() {
+                              var index = currentQuestion.answers.indexWhere((element) => element == answer);
+                              _selectedIndex = _selectedIndex == index ? -1 : index;
+                            }),
+                            backgroundColor: (_selectedIndex >= 0 && currentQuestion.answers[_selectedIndex] == answer)
+                                ? MaterialStateProperty.all(Colors.green)
+                                : MaterialStateProperty.all(Colors.white),
+                          ),
+                      ],
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  ),
                 ),
-              Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  if (_selectedIndex >= 0)
-                    AnimatedContainer(
+                if (_selectedIndex >= 0)
+                  AnimatedOpacity(
+                    opacity: _checked ? 1 : 0,
+                    duration: Duration(milliseconds: 100),
+                    child: Container(
+                      alignment: Alignment.center,
                       width: double.infinity,
-                      duration: const Duration(milliseconds: 100),
-                      color: currentQuestion.rightAnswer == _selectedIndex ? Colors.green : Colors.grey,
                       child: Text(
-                        currentQuestion.rightAnswer == _selectedIndex ? 'Correct!' : 'Not quite!',
+                        currentQuestion.feedback[_selectedIndex],
                         textAlign: TextAlign.center,
-                        style: textStyle18,
+                        style: textStyle,
                       ),
-                      height: _checked ? 100 : 0,
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MyMaterialButton(
-                      text: _checked ? 'CONTINUE' : 'CHECK',
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      onPressed: () => _selectedIndex != -1 ? onAnswerClicked(widget.szenarioHandler.szenario, context) : null,
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     ),
                   ),
-                ],
-              ),
-            ],
+                Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    if (_selectedIndex >= 0)
+                      AnimatedContainer(
+                        width: double.infinity,
+                        duration: const Duration(milliseconds: 100),
+                        color: currentQuestion.rightAnswer == _selectedIndex ? Colors.green : Colors.grey,
+                        child: Text(
+                          currentQuestion.rightAnswer == _selectedIndex ? 'Correct!' : 'Not quite!',
+                          textAlign: TextAlign.center,
+                          style: textStyle18,
+                        ),
+                        height: _checked ? 100 : 0,
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MyMaterialButton(
+                        text: _checked ? 'CONTINUE' : 'CHECK',
+                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                        onPressed: () => _selectedIndex != -1 ? onAnswerClicked(widget.szenarioHandler.szenario, context) : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

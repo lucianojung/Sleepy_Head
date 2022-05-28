@@ -22,44 +22,46 @@ class _CelebrationViewState extends State<CelebrationView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: Stack(
-        children: [
-          Center(child: Image.asset('assets/images/Star2.png', fit: BoxFit.fitWidth,)),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: RiveAnimation.asset(
-              'assets/sam_lit.riv',
-              artboard: 'Sam Celebrating',
-              animations: ['sam_celebrating'],
-              alignment: Alignment.center,
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          Positioned(
-            bottom: 100,
-            width: MediaQuery.of(context).size.width,
-            child: GradientText(
-              // 'You won 10 Points!',
-              widget.szenarioHandler.celebrationText,
-              gradient: headerGradient,
-              style: headerStyle,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Stack(
+          children: [
+            Center(child: Image.asset('assets/images/Star2.png', fit: BoxFit.fitWidth,)),
+            Padding(
               padding: const EdgeInsets.all(16.0),
-              child: MyMaterialButton(
-                text: 'CONTINUE',
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                onPressed: () => onContinue(context),
+              child: RiveAnimation.asset(
+                'assets/sam_lit.riv',
+                artboard: 'Sam Celebrating',
+                animations: ['sam_celebrating'],
+                alignment: Alignment.center,
+                fit: BoxFit.fitWidth,
               ),
             ),
-          )
-        ],
+            Positioned(
+              bottom: 100,
+              width: MediaQuery.of(context).size.width,
+              child: GradientText(
+                // 'You won 10 Points!',
+                widget.szenarioHandler.celebrationText,
+                gradient: headerGradient,
+                style: headerStyle,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: MyMaterialButton(
+                  text: 'CONTINUE',
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  onPressed: () => onContinue(context),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

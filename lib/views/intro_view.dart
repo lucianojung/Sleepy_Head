@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 
@@ -9,6 +10,7 @@ import 'package:sleepy_head/services/user_data_provider.dart';
 
 import '../shared/gradient_text.dart';
 import '../theme_config.dart';
+import 'dart:math' as math; // import this
 
 class IntroductionView extends StatefulWidget {
   @override
@@ -31,13 +33,17 @@ class _IntroductionViewState extends State<IntroductionView> {
             gradient: headerGradient
           ),
           body: textWidget(AppLocalizations.of(context)!.newUserWelcomeText('Sam')),
-          mainImage: SizedBox(
-            child: rive.RiveAnimation.asset(
-              'assets/sam_lit.riv',
-              artboard: 'Sam Hanging',
-              stateMachines: ['Sam_State_Hanging'],
-              alignment: Alignment.topRight,
-              fit: BoxFit.fitHeight,
+          mainImage: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(math.pi),
+            child: SizedBox(
+              child: rive.RiveAnimation.asset(
+                'assets/sam_lit.riv',
+                artboard: 'Sam Hanging',
+                stateMachines: ['Sam_State_Hanging'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitWidth,
+              ),
             ),
           ),
           pageColor: Color(0xFF0A0A0A),
@@ -49,13 +55,17 @@ class _IntroductionViewState extends State<IntroductionView> {
           gradient: headerGradient
         ),
         body: textWidget('I am Sam the sloth...'),
-        mainImage: SizedBox(
-          child: rive.RiveAnimation.asset(
-            'assets/sam_lit.riv',
-            artboard: 'Sam Hanging',
-            stateMachines: ['Sam_State_Hanging'],
-            alignment: Alignment.topRight,
-            fit: BoxFit.fitHeight,
+        mainImage: Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(math.pi),
+          child: SizedBox(
+            child: rive.RiveAnimation.asset(
+              'assets/sam_lit.riv',
+              artboard: 'Sam Hanging',
+              stateMachines: ['Sam_State_Hanging'],
+              alignment: Alignment.topRight,
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
         pageColor: Color(0xFF0A0A0A),
@@ -92,13 +102,17 @@ class _IntroductionViewState extends State<IntroductionView> {
             ),
           ],
         ),
-        mainImage: SizedBox(
-          child: rive.RiveAnimation.asset(
-            'assets/sam_lit.riv',
-            artboard: 'Sam Hanging',
-            stateMachines: ['Sam_State_Hanging'],
-            alignment: Alignment.topRight,
-            fit: BoxFit.fitHeight,
+        mainImage: Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(math.pi),
+          child: SizedBox(
+            child: rive.RiveAnimation.asset(
+              'assets/sam_lit.riv',
+              artboard: 'Sam Hanging',
+              stateMachines: ['Sam_State_Hanging'],
+              alignment: Alignment.topRight,
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
         pageColor: Color(0xFF0A0A0A),
