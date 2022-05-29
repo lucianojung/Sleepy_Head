@@ -71,10 +71,12 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
                   child: Container(
                     alignment: Alignment.center,
                     width: double.infinity,
-                    child: Text(
-                      _checked ? currentQuestion.feedback[_selectedIndex] : '',
-                      textAlign: TextAlign.center,
-                      style: textStyle,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        _checked ? currentQuestion.feedback[_selectedIndex] : '',
+                        textAlign: TextAlign.center,
+                        style: textStyle18,
+                      ),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),

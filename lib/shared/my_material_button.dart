@@ -20,7 +20,7 @@ class _MyMaterialButtonState extends State<MyMaterialButton> {
       height: 48,
       child: OutlinedButton(
         onPressed: widget.onPressed,
-        child: Text(widget.text),
+        child: SingleChildScrollView(child: Text(widget.text)),
         style: ButtonStyle(
           backgroundColor: widget.backgroundColor,
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

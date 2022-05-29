@@ -71,7 +71,7 @@ class _SzenarioViewState extends State<SzenarioView> {
                   GestureDetector(
                     onTap: (() => _hitGreet),
                     child: SizedBox(
-                      height: 300,
+                      height:  MediaQuery.of(context).size.height/4,
                       width: width,
                       child: Container(),
                     ),
