@@ -24,9 +24,15 @@ class _CelebrationViewState extends State<CelebrationView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        // backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: [
+            Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.fill,
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.centerRight,
+            ),
             Center(child: Image.asset('assets/images/Star2.png', fit: BoxFit.fitWidth,)),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -57,6 +63,7 @@ class _CelebrationViewState extends State<CelebrationView> {
                   text: 'CONTINUE',
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                   onPressed: () => onContinue(context),
+                  textStyle: textStyle.copyWith(color: Colors.black87),
                 ),
               ),
             )

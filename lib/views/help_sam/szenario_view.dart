@@ -6,6 +6,7 @@ import 'package:sleepy_head/models/szenario_handler.dart';
 import '../../models/szenario.dart';
 import '../../shared/chat_widgets.dart';
 import '../../shared/my_material_button.dart';
+import '../../theme_config.dart';
 
 class SzenarioView extends StatefulWidget {
   SzenarioHandler szenarioHandler;
@@ -19,29 +20,27 @@ class SzenarioView extends StatefulWidget {
 class _SzenarioViewState extends State<SzenarioView> {
   List<Bubble> chat = [];
   List<Widget> options = [];
-  SMITrigger? _greet;
   var _answered = false;
-
-  void _onRiveInit(Artboard artboard) {
-    final controller = StateMachineController.fromArtboard(artboard, 'Sam_State_Greeting');
-    artboard.addController(controller!);
-    _greet = controller.findInput<bool>('greeting trigger') as SMITrigger;
-  }
-
-  void _hitGreet() => _greet?.fire();
 
   @override
   void initState() {
     for (String chatText in (widget.szenarioHandler.isInfoStep
         ? widget.szenarioHandler.szenario.info.split('\n')
         : widget.szenarioHandler.szenario.samSzenario.split('\n'))) {
-      setState(() => chat.add(SamBubble(chatText)));
+      setState(() => chat.add(widget.szenarioHandler.isInfoStep ? NarratorBubble(chatText) : SamBubble(chatText)));
     }
     Future.delayed(
         const Duration(milliseconds: 500),
-        () => setState(() => options.add(AnswerButton(
-            widget.szenarioHandler.isInfoStep ? 'Got it!' : widget.szenarioHandler.szenario.userAnswer,
-            callback(widget.szenarioHandler.isInfoStep ? 'Got it!' : widget.szenarioHandler.szenario.userAnswer)))));
+        () => setState(() {
+              if (widget.szenarioHandler.isInfoStep) {
+                options.add(AnswerButton('Got it!', callback('Got it!')));
+              } else {
+                options.add(AnswerButton(
+                    widget.szenarioHandler.szenario.userAnswer, callback(widget.szenarioHandler.szenario.userAnswer)));
+                options.add(AnswerButton(
+                    'Nope I hate you!', callback('Sure thing!')));
+              }
+            }));
     super.initState();
   }
 
@@ -50,17 +49,29 @@ class _SzenarioViewState extends State<SzenarioView> {
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        // backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: [
-            GestureDetector(
-              onTap: () => _hitGreet(),
-              child: RiveAnimation.asset(
+            Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.fill,
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.centerRight,
+            ),
+            AnimatedSwitcher(duration: Duration(seconds: 0),
+              child: widget.szenarioHandler.isInfoStep ?
+              RiveAnimation.asset(
                 'assets/sam_lit.riv',
-                artboard: 'Sam Greeting',
-                stateMachines: ['Sam_State_Greeting'],
+                artboard: 'Sam Hanging',
+                stateMachines: ['Sam_State_Hanging'],
                 alignment: Alignment.topRight,
                 fit: BoxFit.fitWidth,
-                onInit: _onRiveInit,
+              ) : RiveAnimation.asset(
+                'assets/sam_lit.riv',
+                artboard: 'Sam Questioning',
+                stateMachines: ['Sam_State_Questioning'],
+                alignment: Alignment.topRight,
+                fit: BoxFit.fitWidth,
               ),
             ),
             Padding(
@@ -68,13 +79,10 @@ class _SzenarioViewState extends State<SzenarioView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  GestureDetector(
-                    onTap: (() => _hitGreet),
-                    child: SizedBox(
-                      height:  MediaQuery.of(context).size.height/4,
-                      width: width,
-                      child: Container(),
-                    ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 3,
+                    width: width,
+                    child: Container(),
                   ),
                   for (Bubble message in chat) message,
                   Expanded(
@@ -91,6 +99,7 @@ class _SzenarioViewState extends State<SzenarioView> {
                         text: 'CONTINUE',
                         backgroundColor: MaterialStateProperty.all(Colors.white),
                         onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
+                          textStyle: textStyle.copyWith(color: Colors.black87)
                       ),
                     ),
                 ],

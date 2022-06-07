@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
             // theme: (DateTime.now().hour > 22 || DateTime.now().hour < 6) ? darkTheme : lightTheme,
             theme:  darkTheme,
             initialRoute: context.read<AppConfigProvider>().initialRoute,
-            // initialRoute: '/animation',
+            // initialRoute: '/night',
+            // initialRoute: '/rive',
             onGenerateRoute: RouteGenerator.generateRoute,
           )
         : Center(key: UniqueKey(), child: CircularProgressIndicator());

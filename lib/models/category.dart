@@ -36,28 +36,30 @@ class Category {
       Szenario(
           id: 1,
           difficulty: 0,
-          szenarioName: 'Sam Can’t Fall To Sleep',
+          szenarioName: 'Sam Can’t Fall Asleep',
           samSzenario:
-              'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
+              'Hi there! \nI\'m having problems to fall asleep lately. \nCan you help me find a solution.',
           userAnswer: 'No problem we will find a solution for you!',
           questions: [
             QuestionAndAnswer(
                 id: 1,
-                question: 'What could Sam do to help himself fall to sleep?',
+                question: 'What behaviour helps Sam better fall asleep before going to bed?',
                 answers: [
-                  'Play more candy crush to relax',
-                  'Stop using his phone 30 minutes before bed',
-                  'Use an extra pillow in bed',
+                  'Play videogames',
+                  'Stop using screens',
+                  'Use an extra pillow',
+                  'Drink a glas of wine',
                 ],
                 feedback: [
-                  'Though Sam may enjoy playing candy crush, he’s actually keeping himself awake the more he plays. Not only is he paying attention to the game, but using his phone before bed increases his light exposure, leading his brain to think it’s still daytime and not time to feel tired/fall to sleep.',
-                  'Stopping using his phone 30 minutes before bed reduces the light exposure he has, meaning his brain is naturally preparing the body to go to sleep soon.',
-                  'Though an extra pillow may be more comfortable, the impact of light exposure in bed can be huge. It’s more important for Sam to stop using his phone in bed, then to get a 3rd pillow.',
+                  '',
+                  '',
+                  '',
+                  '',
                 ],
                 rightAnswer: 1)
           ],
           info:
-              'Stopping using his phone 30 minutes before bed reduces the light exposure he has, meaning his brain is naturally preparing the body to go to sleep soon.\nIt can also help to feel more alert when you have at least 30 minutes of direct sunlight in the first half of your day.'), // Szenario 1 Question 1
+              'Sam should stops using his phone at least 30 mins before bed. \nThis reduces his light exposure and therefore prepare his brain in a naturally way to go to sleep soon. \nDrinking a glas of wine to better fall asleep is unfortunately a myth.'), // Szenario 1 Question 1
     ]),
     Category(id: 2, categoryName: 'Internal clock', szenarios: [
       Szenario(

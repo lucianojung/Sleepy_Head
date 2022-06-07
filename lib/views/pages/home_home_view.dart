@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:bubble/bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 import '../../shared/chat_widgets.dart';
 
@@ -14,15 +17,12 @@ class HomeHomeView extends StatefulWidget {
 class _HomeHomeViewState extends State<HomeHomeView> {
   List<Bubble> chat = [];
   List<Widget> options = [];
-  SMITrigger? _greet;
+  SMIInput<double>? _action;
 
-  void _onRiveInit(Artboard artboard) {
-    final controller = StateMachineController.fromArtboard(artboard, 'Sam_State_Hanging');
-    artboard.addController(controller!);
-    _greet = controller.findInput<bool>('greeting trigger') as SMITrigger;
-  }
+  Artboard? _riveArtboard;
+  StateMachineController? _controller;
 
-  void _hitGreet() => _greet?.fire();
+  bool get isPlaying => _controller?.isActive ?? false;
 
   @override
   void initState() {
@@ -32,36 +32,62 @@ class _HomeHomeViewState extends State<HomeHomeView> {
       AnswerButton('Well today is not my day.', callback('Well today is not my day.')),
     ]);
     super.initState();
+
+    // Load the animation file from the bundle, note that you could also
+    // download this. The RiveFile just expects a list of bytes.
+    rootBundle.load('assets/sam_lit.riv').then(
+      (data) async {
+        // Load the RiveFile from the binary data.
+        final file = RiveFile.import(data);
+
+        // The artboard is the root of the animation and gets drawn in the
+        // Rive widget.
+        final artboard = file.artboardByName('Sam Eating');
+        var controller = StateMachineController.fromArtboard(artboard!, 'State Machine 1');
+        if (controller != null) {
+          artboard.addController(controller);
+          _action = controller.findInput<double>('Number 1') as SMIInput<double>;
+        }
+        setState(() => _riveArtboard = artboard);
+      },
+    );
   }
+
+  void _hitAction(number) => _action?.value == 0
+      ? _action?.value = number
+      : !isPlaying
+          ? _action?.value = 0
+          : null;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        GestureDetector(
-          onTap: () => _hitGreet(),
-          child: RiveAnimation.asset(
-            'assets/sam_lit.riv',
-            artboard: 'Sam Hanging',
-            stateMachines: ['Sam_State_Hanging'],
-            alignment: Alignment.topRight,
-            fit: BoxFit.fitWidth,
-            onInit: _onRiveInit,
-          ),
-        ),
+        _riveArtboard != null
+            ? GestureDetector(
+                onTap: () => _hitAction(Random().nextInt(3) + 1),
+                child: Rive(
+                  artboard: _riveArtboard!,
+                  alignment: Alignment.topRight,
+                  fit: BoxFit.fitWidth,
+                ),
+              )
+            : SizedBox(
+                height: 350,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTap: (() => _hitGreet),
-                child: SizedBox(
-                  height: 300,
-                  width: width,
-                  child: Container(),
-                ),
+              SizedBox(
+                height: 300,
+                width: width,
+                child: Container(),
               ),
               for (Bubble message in chat) message,
               Wrap(

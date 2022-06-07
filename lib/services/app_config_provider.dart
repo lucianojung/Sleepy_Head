@@ -12,7 +12,7 @@ class AppConfigProvider extends ChangeNotifier {
 
   AppConfig get appConfig => _appConfig;
 
-  String get initialRoute => isFirstTime ? GlobalVariables().initialRoute : GlobalVariables().homeRoute;
+  String get initialRoute => isAfterSleepTime ? GlobalVariables().nightRoute : isFirstTime ? GlobalVariables().initialRoute : GlobalVariables().homeRoute;
 
   AppConfigProvider() {
     initialState();
@@ -30,6 +30,7 @@ class AppConfigProvider extends ChangeNotifier {
       );
 
   get isFirstTime => _appConfig.lastUpdate.isAtSameMomentAs(DateTime.fromMillisecondsSinceEpoch(1000));
+  get isAfterSleepTime => DateTime.now().hour >= 22 || DateTime.now().hour <= 6;
 
   // CRUD Methods for local Variables
 

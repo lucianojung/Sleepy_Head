@@ -55,12 +55,12 @@ BubbleStyle bubbleStyleNarrator = BubbleStyle(
   nip: BubbleNip.no,
   // nipWidth: 16,
   // nipHeight: 16,
-  color: primaryColor,
+  color: Color(0xff3A3A3A),
   borderColor: Colors.transparent,
   borderWidth: 1,
   elevation: 4,
-  // margin: BubbleEdges.only(top: 8, right: 50),
-  alignment: Alignment.topCenter,
+  margin: BubbleEdges.only(top: 8, right: 50),
+  alignment: Alignment.topLeft,
 );
 
 BubbleStyle bubbleStyleUser = BubbleStyle(

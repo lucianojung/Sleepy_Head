@@ -4,11 +4,13 @@ import 'package:sleepy_head/models/szenario_handler.dart';
 import 'package:sleepy_head/services/app_config_provider.dart';
 import 'package:sleepy_head/views/help_sam/celebration_view.dart';
 import 'package:sleepy_head/views/help_sam/szenario_view.dart';
+import 'package:sleepy_head/views/pages/night_view.dart';
 import '../views/help_sam/question_view.dart';
 
 import '../global_variables.dart';
 import '../views/home_view.dart';
 import '../views/intro_view.dart';
+import '../views/pages/rive_view.dart';
 
 
 class RouteGenerator {
@@ -37,6 +39,12 @@ class RouteGenerator {
       case '/szenarioCelebration':
         return MaterialPageRoute(
             builder: (_) => CelebrationView(szenarioHandler: args[0] is SzenarioHandler ? args[0] : SzenarioHandler()));
+      case '/rive':
+        return MaterialPageRoute(
+            builder: (_) => RiveView());
+      case '/night':
+        return MaterialPageRoute(
+            builder: (_) => NightView());
       default:
         return _errorRoute(message: 'wrong routing name');
     }
