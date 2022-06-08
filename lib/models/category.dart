@@ -37,8 +37,7 @@ class Category {
           id: 1,
           difficulty: 0,
           szenarioName: 'Sam Can’t Fall Asleep',
-          samSzenario:
-              'Hi there! \nI\'m having problems to fall asleep lately. \nCan you help me find a solution.',
+          samSzenario: 'Hi there! \nI\'m having problems to fall asleep lately. \nCan you help me find a solution.',
           userAnswer: 'No problem we will find a solution for you!',
           questions: [
             QuestionAndAnswer(
@@ -48,7 +47,7 @@ class Category {
                   'Play videogames',
                   'Stop using screens',
                   'Use an extra pillow',
-                  'Drink a glas of wine',
+                  'Drink a glass of wine',
                 ],
                 feedback: [
                   '',
@@ -59,94 +58,182 @@ class Category {
                 rightAnswer: 1)
           ],
           info:
-              'Sam should stops using his phone at least 30 mins before bed. \nThis reduces his light exposure and therefore prepare his brain in a naturally way to go to sleep soon. \nDrinking a glas of wine to better fall asleep is unfortunately a myth.'), // Szenario 1 Question 1
+              'Sam should stops using his phone at least 30 mins before bed. \nThis reduces his light exposure and therefore prepare his brain in a naturally way to go to sleep soon. \nDrinking a glas of wine to better fall asleep is unfortunately a myth.'),
+      // Szenario 1 Question 1
     ]),
     Category(id: 2, categoryName: 'Internal clock', szenarios: [
       Szenario(
-          id: 2,
+          id: 7,
           difficulty: 0,
-          szenarioName: 'Sam Can’t Fall To Sleep',
+          szenarioName: 'Sam woke up early',
           samSzenario:
-              'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
-          userAnswer: 'No problem we will find a solution for you!',
+              'Hi there! \nI wanted to sleep in today \nBut even though I got in bed late I woke up at 5am without even setting my alarm',
+          userAnswer: 'I think I can help you with that',
           questions: [
             QuestionAndAnswer(
-                id: 2,
-                question: 'What could Sam do to help himself fall to sleep?',
+                id: 7,
+                question: 'Why did Sam wake at the time his alarm normally goes off?',
                 answers: [
-                  'Go to sleep at the same time and wake up at the same time',
-                  'Just go to sleep when he feels like it',
-                  'Use blackout blinds and no alarm to wake up',
+                  'Sam didn´t stay up late enough',
+                  'Sam wasn´t tired enough for sleeping in',
+                  'Sam´s circadian rhythm woke him up',
+                  'Sam didn´t sleep at all'
                 ],
                 feedback: [
-                  'Sleeping at the same time, as well as waking up at the same time, help to maintain a consistent circadian rhythm, our bodies natural sleep/wake clock. This is one of the most fundamental aspects of sleeping well.',
-                  'Sleeping at a consistent time, as well as waking up at a consistent time, helps to maintain our bodies natural sleep cycle - known as our circadian rhythm.',
-                  'The combination of blackout blinds and no alarm for waking up remove two natural indicators that its time to wake up (ie light and sound). Removing both of these means our bodies can’t develop a natural sleep cycle, which in turns leaves Sam feeling more tired and like he can’t fall to sleep very well.',
+                  '',
+                  '',
+                  '',
+                  '',
                 ],
-                rightAnswer: 0)
+                rightAnswer: 2)
           ],
           info:
-              ' Sleeping at a consistent time, as well as waking up at a consistent time, helps to maintain our bodies natural sleep cycle - known as our circadian rhythm.\nAlso napping in general is not advised, as it disrupts your natural sleep cycle.'), // Szenario 1 Question 2
-      Szenario(
-          id: 3,
-          difficulty: 2,
-          szenarioName: 'Sam is tired in the morning!',
-          samSzenario: 'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
-          userAnswer: 'Yes, I can help you with that!',
-          questions: [
-            QuestionAndAnswer(
-                id: 3,
-                question:
-                    'One of the following statements is wrong - can you help Sam to find the one thing on this list he should avoid?',
-                answers: [
-                  'In the first half of the day, Sam should try to get at least 30-40 minutes of direct sunlight to feel more alert.',
-                  'Paying attention to the daily light exposure is the only tool available to set Sam\'s internal clock correctly.',
-                  'Whenever possible, Sam should try to minimize the time with sunglasses on to accurately convey information about the daytime to the rest of the body.',
-                ],
-                feedback: [
-                  'It is true that direct sunlight in the first hours of the day improves alertness, which has a great influence on the circadian rhythm and the internal clock. At best, this is achieved by spending time outside, and it doesn\'t matter if it\'s cloudy. But even the light exposure through a window already has a great impact on the internal clock, which is why working next to a window can be used when time outside in the first half of the day is not possible. The correct answer would have been b, because in addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
-                  'In addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
-                  'Wearing sunglasses tends to change the sensitivity of the eye\'s adaptation mechanism, by which you can usually tell what time of day it is. The correct answer would have been b, because in addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
-                ],
-                rightAnswer: 1)
-          ],
-          info:
-              'In addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.'), // Szenario 2 Question 1
+              'Sam woke up at the time his alarm normally goes off because his body is acting in accordance with his internal clock (circadian rhythm) '
+              '\nYour brain regulates patterns of sleep and wakefulness, matching them to the 24-hour circadian rhythm. So waking up every day at the same time is a good way to sustaining health '
+              '\nBe careful staying up unusually late or snoozing for too long because it can throw off your rhythm.')
+      /** Szenario(
+          //     id: 2,
+          //     difficulty: 0,
+          //     szenarioName: 'Sam Can’t Fall To Sleep',
+          //     samSzenario:
+          //         'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
+          //     userAnswer: 'No problem we will find a solution for you!',
+          //     questions: [
+          //       QuestionAndAnswer(
+          //           id: 2,
+          //           question: 'What could Sam do to help himself fall to sleep?',
+          //           answers: [
+          //             'Go to sleep at the same time and wake up at the same time',
+          //             'Just go to sleep when he feels like it',
+          //             'Use blackout blinds and no alarm to wake up',
+          //           ],
+          //           feedback: [
+          //             'Sleeping at the same time, as well as waking up at the same time, help to maintain a consistent circadian rhythm, our bodies natural sleep/wake clock. This is one of the most fundamental aspects of sleeping well.',
+          //             'Sleeping at a consistent time, as well as waking up at a consistent time, helps to maintain our bodies natural sleep cycle - known as our circadian rhythm.',
+          //             'The combination of blackout blinds and no alarm for waking up remove two natural indicators that its time to wake up (ie light and sound). Removing both of these means our bodies can’t develop a natural sleep cycle, which in turns leaves Sam feeling more tired and like he can’t fall to sleep very well.',
+          //           ],
+          //           rightAnswer: 0)
+          //     ],
+          //     info:
+          //         ' Sleeping at a consistent time, as well as waking up at a consistent time, helps to maintain our bodies natural sleep cycle - known as our circadian rhythm.\nAlso napping in general is not advised, as it disrupts your natural sleep cycle.'), // Szenario 1 Question 2
+          // Szenario(
+          //     id: 3,
+          //     difficulty: 2,
+          //     szenarioName: 'Sam is tired in the morning!',
+          //     samSzenario: 'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
+          //     userAnswer: 'Yes, I can help you with that!',
+          //     questions: [
+          //       QuestionAndAnswer(
+          //           id: 3,
+          //           question:
+          //               'One of the following statements is wrong - can you help Sam to find the one thing on this list he should avoid?',
+          //           answers: [
+          //             'In the first half of the day, Sam should try to get at least 30-40 minutes of direct sunlight to feel more alert.',
+          //             'Paying attention to the daily light exposure is the only tool available to set Sam\'s internal clock correctly.',
+          //             'Whenever possible, Sam should try to minimize the time with sunglasses on to accurately convey information about the daytime to the rest of the body.',
+          //           ],
+          //           feedback: [
+          //             'It is true that direct sunlight in the first hours of the day improves alertness, which has a great influence on the circadian rhythm and the internal clock. At best, this is achieved by spending time outside, and it doesn\'t matter if it\'s cloudy. But even the light exposure through a window already has a great impact on the internal clock, which is why working next to a window can be used when time outside in the first half of the day is not possible. The correct answer would have been b, because in addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
+          //             'In addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
+          //             'Wearing sunglasses tends to change the sensitivity of the eye\'s adaptation mechanism, by which you can usually tell what time of day it is. The correct answer would have been b, because in addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.',
+          //           ],
+          //           rightAnswer: 1)
+          //     ],
+          //     info:
+          //         'In addition to light exposure, diet and other habits, such as alcohol or smoking, also play a role in influencing the circadian rhythm.'), // Szenario 2 Question 1
+       **/
     ]),
     Category(id: 3, categoryName: 'Routine', szenarios: [
       Szenario(
+          id: 8,
+          difficulty: 0,
+          szenarioName: 'Sam improves himself',
+          samSzenario: 'Hi there! \nI was wondering if I could do something easy to enjoy better sleep.',
+          userAnswer: 'Let me think',
+          questions: [
+            QuestionAndAnswer(
+                id: 8,
+                question: 'What could  Sam do to enjoy a better sleep?',
+                answers: [
+                  'listening to loud music',
+                  'a warmer bedroom is best for better sleep',
+                  'take naps',
+                  'create a bedtime routine'
+                ],
+                feedback: [
+                  '',
+                  '',
+                  '',
+                  '',
+                ],
+                rightAnswer: 3)
+          ],
+          info: 'Bedtime routines help the brain separate the day from the night, and relax into sleep'
+              '\nA warm bedroom might feel cozier but it’s not ideal for sleep. Sleeping in a hot room can cause unwanted awakenings'
+              '\nNapping is not advised, as it disrupts your natural sleep cycle')
+      /**
+          Szenario(
           id: 4,
           difficulty: 0,
           szenarioName: 'Sam Can’t Fall To Sleep',
           samSzenario:
-              'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
+          'Hi there! Can you help me find an answer? \nWhen I\'m in bed and use my phone I can\'t fall asleep.',
           userAnswer: 'No problem we will find a solution for you!',
           questions: [
+          QuestionAndAnswer(
+          id: 4,
+          question: 'What could Sam do to help himself fall to sleep?',
+          answers: [
+          'Create a calming routine before bed and try reading, for example',
+          'Keep playing candy crush as he enjoys it',
+          'Just focus on the morning routine as the evening is not important',
+          ],
+          feedback: [
+          'Compared to using a phone before bed, which offers light exposure, potential noise and the need of focused attention, creating a calming routine like reading before bed helps to develop healthy sleep hygiene as a result of a consistent and helpful routine.',
+          'Despite the enjoyment, Sam’s brain is experiencing a sense of reward/enjoyment and is less likely to fall to sleep, along with the light exposure and potential sounds. Using a phone in bed before sleep doesn’t help the body to prepare for sleep, rather, signals its a time to be awake. ',
+          'Though of course it is helpful and important to focus on the morning routine, it is also important to consider the evening routine. This way, Sam can develop a well-rounded sleep cycle and decrease feelings of tiredness and easily fall to sleep.',
+          ],
+          rightAnswer: 0)
+          ],
+          info:
+          'Compared to using a phone before bed, which offers light exposure, potential noise and the need of focused attention, creating a calming routine like reading before bed helps to develop healthy sleep hygiene as a result of a consistent and helpful routine.'),
+          // Szenario 1 Question 3
+       **/
+    ]),
+    Category(id: 4, categoryName: 'Drugs', szenarios: [
+      Szenario(
+          id: 9,
+          difficulty: 0,
+          szenarioName: 'Sam improves himself',
+          samSzenario: 'Hi there! \nYesterday it was cold and dark outside \nSo I  ate a healthy breakfast and right before bed had a beer \nI fell asleep easy',
+          userAnswer: 'Le me find the reason for you',
+          questions: [
             QuestionAndAnswer(
-                id: 4,
-                question: 'What could Sam do to help himself fall to sleep?',
+                id: 9,
+                question: 'Why did Sam probably fall asleep better?',
                 answers: [
-                  'Create a calming routine before bed and try reading, for example',
-                  'Keep playing candy crush as he enjoys it',
-                  'Just focus on the morning routine as the evening is not important',
+                  'he was drinking liquor',
+                  'it was really cold',
+                  'he ate a healthy breakfast',
+                  'it was dark outside'
                 ],
                 feedback: [
-                  'Compared to using a phone before bed, which offers light exposure, potential noise and the need of focused attention, creating a calming routine like reading before bed helps to develop healthy sleep hygiene as a result of a consistent and helpful routine.',
-                  'Despite the enjoyment, Sam’s brain is experiencing a sense of reward/enjoyment and is less likely to fall to sleep, along with the light exposure and potential sounds. Using a phone in bed before sleep doesn’t help the body to prepare for sleep, rather, signals its a time to be awake. ',
-                  'Though of course it is helpful and important to focus on the morning routine, it is also important to consider the evening routine. This way, Sam can develop a well-rounded sleep cycle and decrease feelings of tiredness and easily fall to sleep.',
+                  '',
+                  '',
+                  '',
+                  '',
                 ],
                 rightAnswer: 0)
           ],
-          info:
-              'Compared to using a phone before bed, which offers light exposure, potential noise and the need of focused attention, creating a calming routine like reading before bed helps to develop healthy sleep hygiene as a result of a consistent and helpful routine.'), // Szenario 1 Question 3
-    ]),
-    Category(id: 4, categoryName: 'Drugs', szenarios: [
+          info: 'Liquor makes it easier to fall asleep, but it also lowers Sams sleep quality'
+                '\nEven a small amount of liquor has an impact on the sleep quality'
+      '\nSo Sam shouldn\'t consider drinking liquor on a regular basis in the evening')
+      /**
       Szenario(
           id: 5,
           difficulty: 2,
           szenarioName: 'Sam is tired in the morning!',
-          samSzenario:
-              'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
+          samSzenario: 'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
           userAnswer: 'Sure thing!',
           questions: [
             QuestionAndAnswer(
@@ -170,8 +257,7 @@ class Category {
           id: 6,
           difficulty: 2,
           szenarioName: 'Sam is tired in the morning!',
-          samSzenario:
-          'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
+          samSzenario: 'Hi there! I\'m feeling tired although I slept enough. Can you help me find the reason?',
           userAnswer: 'That\'s what I\'m here for!',
           questions: [
             QuestionAndAnswer(
@@ -190,7 +276,8 @@ class Category {
                 rightAnswer: 0)
           ],
           info:
-          'Even low amounts of alcohol decrease the sleep quality by approximately 10% and if Sam would drink more, this number increases up to 40%. Of course, the timing and dose of drinking play a role, and the exact extent of the reaction is different for each person. Although the degree of impairment varies, clearly no improvement in sleep is achieved by alcohol.'),
-    ]),
+              'Even low amounts of alcohol decrease the sleep quality by approximately 10% and if Sam would drink more, this number increases up to 40%. Of course, the timing and dose of drinking play a role, and the exact extent of the reaction is different for each person. Although the degree of impairment varies, clearly no improvement in sleep is achieved by alcohol.'),
+    **/
+          ]),
   ];
 }
