@@ -43,7 +43,7 @@ class _HomeHomeViewState extends State<HomeHomeView> {
         // The artboard is the root of the animation and gets drawn in the
         // Rive widget.
         final artboard = file.artboardByName('Sam Eating');
-        var controller = StateMachineController.fromArtboard(artboard!, 'State Machine 1');
+        var controller = StateMachineController.fromArtboard(artboard!, 'Sam_State_Eating');
         if (controller != null) {
           artboard.addController(controller);
           _action = controller.findInput<double>('Number 1') as SMIInput<double>;

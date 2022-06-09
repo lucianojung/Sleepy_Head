@@ -18,7 +18,7 @@ class _NightViewState extends State<NightView> {
   SMITrigger? _action;
 
   void _onRiveInit(Artboard artboard) {
-    final controller = StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    final controller = StateMachineController.fromArtboard(artboard, 'Sam_State_Waking_Up');
     artboard.addController(controller!);
     _action = controller.findInput<bool>('Trigger') as SMITrigger;
   }
@@ -43,7 +43,7 @@ class _NightViewState extends State<NightView> {
               RiveAnimation.asset(
                 'assets/sam_lit.riv',
                 artboard: 'Sam Waking Up',
-                stateMachines: ['State Machine 1'],
+                stateMachines: ['Sam_State_Waking_Up'],
                 alignment: Alignment.topRight,
                 fit: BoxFit.fitWidth,
                 onInit: _onRiveInit,
