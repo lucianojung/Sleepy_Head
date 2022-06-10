@@ -56,6 +56,7 @@ class _SzenarioViewState extends State<SzenarioView> {
               'assets/images/background.png',
               fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
             AnimatedSwitcher(duration: Duration(seconds: 0),

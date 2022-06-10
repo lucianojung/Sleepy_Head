@@ -87,6 +87,7 @@ class _HomeViewState extends State<HomeView> {
               'assets/images/background.png',
               fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
             for (int i = 0; i < Provider.of<UserDataProvider>(context).userData.correctAnswers; i++)

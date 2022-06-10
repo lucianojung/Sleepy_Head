@@ -31,6 +31,7 @@ class _CelebrationViewState extends State<CelebrationView> {
               'assets/images/background.png',
               fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
             Center(child: Image.asset('assets/images/Star2.png', fit: BoxFit.fitWidth,)),

@@ -45,6 +45,7 @@ class _SzenarioQuestionViewState extends State<SzenarioQuestionView> {
               'assets/images/background.png',
               fit: BoxFit.fill,
               height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
             Center(
