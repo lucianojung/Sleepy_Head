@@ -37,8 +37,8 @@ class _SzenarioViewState extends State<SzenarioView> {
               } else {
                 options.add(AnswerButton(
                     widget.szenarioHandler.szenario.userAnswer, callback(widget.szenarioHandler.szenario.userAnswer)));
-                options.add(AnswerButton(
-                    'Nope I hate you!', callback('Sure thing!')));
+                //options.add(AnswerButton(
+                //    'Yeah sure!', callback('Sure thing!')));
               }
             }));
     super.initState();
