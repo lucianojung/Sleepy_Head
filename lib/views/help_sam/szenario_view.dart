@@ -59,20 +59,28 @@ class _SzenarioViewState extends State<SzenarioView> {
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
-            AnimatedSwitcher(duration: Duration(seconds: 0),
-              child: widget.szenarioHandler.isInfoStep ?
-              RiveAnimation.asset(
-                'assets/sam_lit.riv',
-                artboard: 'Sam Hanging',
-                stateMachines: ['Sam_State_Hanging'],
-                alignment: Alignment.topRight,
-                fit: BoxFit.fitWidth,
-              ) : RiveAnimation.asset(
-                'assets/sam_lit.riv',
-                artboard: 'Sam Questioning',
-                stateMachines: ['Sam_State_Questioning'],
-                alignment: Alignment.topRight,
-                fit: BoxFit.fitWidth,
+            Align(
+              alignment: Alignment.centerRight,
+              child: SizedBox(
+                width: 1000,
+                child: AnimatedSwitcher(
+                  duration: Duration(seconds: 0),
+                  child: widget.szenarioHandler.isInfoStep
+                      ? RiveAnimation.asset(
+                          'assets/sam_lit.riv',
+                          artboard: 'Sam Hanging',
+                          stateMachines: ['Sam_State_Hanging'],
+                          alignment: Alignment.topRight,
+                          fit: BoxFit.fitWidth,
+                        )
+                      : RiveAnimation.asset(
+                          'assets/sam_lit.riv',
+                          artboard: 'Sam Questioning',
+                          stateMachines: ['Sam_State_Questioning'],
+                          alignment: Alignment.topRight,
+                          fit: BoxFit.fitWidth,
+                        ),
+                ),
               ),
             ),
             Padding(
@@ -97,11 +105,10 @@ class _SzenarioViewState extends State<SzenarioView> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: MyMaterialButton(
-                        text: 'CONTINUE',
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
-                          textStyle: textStyle.copyWith(color: Colors.black87)
-                      ),
+                          text: 'CONTINUE',
+                          backgroundColor: MaterialStateProperty.all(Colors.white),
+                          onPressed: () => onContinue(widget.szenarioHandler.szenario, context),
+                          textStyle: textStyle.copyWith(color: Colors.black87)),
                     ),
                 ],
               ),

@@ -19,7 +19,6 @@ class CelebrationView extends StatefulWidget {
 }
 
 class _CelebrationViewState extends State<CelebrationView> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,15 +33,25 @@ class _CelebrationViewState extends State<CelebrationView> {
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerRight,
             ),
-            Center(child: Image.asset('assets/images/Star2.png', fit: BoxFit.fitWidth,)),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: RiveAnimation.asset(
-                'assets/sam_lit.riv',
-                artboard: 'Sam Celebrating',
-                animations: ['sam_celebrating'],
-                alignment: Alignment.center,
-                fit: BoxFit.fitWidth,
+            Center(
+                child: Image.asset(
+              'assets/images/Star2.png',
+              fit: BoxFit.fitWidth,
+            )),
+            Align(
+              alignment: Alignment.centerRight,
+              child: SizedBox(
+                width: 1000,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: RiveAnimation.asset(
+                    'assets/sam_lit.riv',
+                    artboard: 'Sam Celebrating',
+                    animations: ['sam_celebrating'],
+                    alignment: Alignment.center,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
             ),
             Positioned(
@@ -73,7 +82,6 @@ class _CelebrationViewState extends State<CelebrationView> {
       ),
     );
   }
-
 
   void onContinue(context) {
     if (widget.szenarioHandler.wrongAnswers <= 0) {

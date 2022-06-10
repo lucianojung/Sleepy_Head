@@ -65,14 +65,20 @@ class _HomeHomeViewState extends State<HomeHomeView> {
     return Stack(
       children: [
         _riveArtboard != null
-            ? GestureDetector(
-                onTap: () => _hitAction(Random().nextInt(3) + 1),
-                child: Rive(
-                  artboard: _riveArtboard!,
-                  alignment: Alignment.topRight,
-                  fit: BoxFit.fitWidth,
-                ),
-              )
+            ? Align(
+          alignment: Alignment.centerRight,
+              child: SizedBox(
+                width: 1000,
+                child: GestureDetector(
+                    onTap: () => _hitAction(Random().nextInt(3) + 1),
+                    child: Rive(
+                      artboard: _riveArtboard!,
+                      alignment: Alignment.topRight,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+              ),
+            )
             : SizedBox(
                 height: 350,
                 child: Center(
